@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<!-- in order to get your jars run this -->
+	<!-- mvn initialize -->
+
+	<groupId>gov.vha.vso.gui.rails</groupId>
+	<artifactId>rails_vso</artifactId>
+	<version>1.00-SNAPSHOT</version><!--THIS IS THE ONLY PLACE SNAPSHOT CAN EXIST BEFORE MAKING A RELEASE!!-->
+	<packaging>pom</packaging>
+
+	<name>Rails VSO</name>
+
+	<description>
+		This project is the Ruby on Rails web GUI for VSO
+	</description>
+
+	<properties>
+		<!--Open up the assembly.xml file in rails common if new directories are added. --><!-- railsMode is automatically set to 'test' or 'production' - 'test' if the version number ends with '-SNAPSHOT'
+		or 'production' otherwise.	See ant execution below-->
+	</properties>
+
+	<scm>
+		<url>https://github.com/vso/rails_vso.git</url>
+	</scm>
+
+	<repositories>
+		<repository>
+			<id>rubygems-proxy</id>
+			<name>Rubygems Proxy</name>
+			<url>http://rubygems-proxy.torquebox.org/releases</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+				<updatePolicy>never</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.jruby</groupId>
+			<artifactId>jruby-complete</artifactId>
+			<version>9.1.15.0</version>
+		</dependency>
+		<dependency>
+			<groupId>rubygems</groupId>
+			<artifactId>rake</artifactId>
+			<version>12.3.0</version>
+			<type>gem</type>
+		</dependency>
+		<dependency>
+			<groupId>rubygems</groupId>
+			<artifactId>bundler</artifactId>
+			<version>1.16.1</version>
+			<type>gem</type>
+		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.oracle.jdbc</groupId>-->
+			<!--<artifactId>ojdbc8</artifactId>-->
+			<!--<version>12.2.0.1</version>-->
+		<!--</dependency>-->
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- Stomp any existing jar files in lib/jars to make sure an old version hanging around doesn't stomp us...-->
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${basedir}/lib/jars/</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</fileset>
+						<fileset>	<!-- Stomp this file that seems to be created during builds-->
+							<directory>${basedir}/db/data/</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</fileset>
+						<!-- This really should be doing a stomp of rails_common as well, because the unpack, below, won't delete deleted files.
+						But that breaks the way that Cris / Greg checkout the common project as a submodule... conditional stomp, perhaps? -->
+					</filesets>
+				</configuration>
+			</plugin>
+			<!-- Place dependent jars! -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>place-jars</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<!-- We really just want jenkins-client, cargo, isaac code and their transitive dependencies. -->
+							<excludeArtifactIds>
+								jruby-complete,rake,bundler,junit
+							</excludeArtifactIds>
+							<overWriteReleases>true</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+							<stripVersion>true</stripVersion>
+							<outputDirectory>${basedir}/lib/jars/</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.torquebox.mojo</groupId>
+				<artifactId>jruby9-exec-maven-plugin</artifactId>
+				<version>0.3.1</version>
+				<executions>
+					<execution>
+						<id>bundle install</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<jrubyVerbose>true</jrubyVerbose>
+							<jrubyJvmArgs>-Djava.awt.headless=true</jrubyJvmArgs>
+							<command>bundle</command>
+							<args>install</args>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>run migration for test db</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<jrubyVerbose>true</jrubyVerbose>
+							<jrubyJvmArgs>-Djava.awt.headless=true</jrubyJvmArgs>
+							<command>rake</command>
+							<args>db:rollback STEP=9999 RAILS_ENV=test db:migrate RAILS_ENV=test</args>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>run migration for production db</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<jrubyVerbose>true</jrubyVerbose>
+							<jrubyJvmArgs>-Djava.awt.headless=true</jrubyJvmArgs>
+							<command>rake</command>
+							<args>db:rollback STEP=9999 RAILS_ENV=production db:migrate RAILS_ENV=production</args>
+						</configuration>
+					</execution>
+<!--
+					<execution>
+						<id>react on rails</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<jrubyVerbose>true</jrubyVerbose>
+							<jrubyJvmArgs>-Xmx4000m -Djava.awt.headless=true</jrubyJvmArgs>
+							<execArgs>RAILS_ENV=${railsMode}</execArgs>
+							<command>rake</command>
+							<args>devops:set_up_react</args>
+						</configuration>
+					</execution>
+-->
+					<!--<execution>-->
+						<!--<id>run integration tests</id>-->
+						<!--<phase>compile</phase>-->
+						<!--<goals>-->
+							<!--<goal>exec</goal>-->
+						<!--</goals>-->
+						<!--<configuration>-->
+							<!--<jrubyVerbose>true</jrubyVerbose>-->
+							<!--<jrubyJvmArgs>-Djava.awt.headless=true</jrubyJvmArgs>-->
+							<!--<command>rake</command>-->
+							<!--<args>test:integration</args>-->
+						<!--</configuration>-->
+					<!--</execution>-->
+
+					<!--<execution>-->
+						<!--<id>run library unit tests</id>-->
+						<!--<phase>compile</phase>-->
+						<!--<goals>-->
+							<!--<goal>exec</goal>-->
+						<!--</goals>-->
+						<!--<configuration>-->
+							<!--<jrubyVerbose>true</jrubyVerbose>-->
+							<!--<jrubyJvmArgs>-Djava.awt.headless=true</jrubyJvmArgs>-->
+							<!--<command>rake</command>-->
+							<!--<args>test:lib_unit</args>-->
+						<!--</configuration>-->
+					<!--</execution>-->
+
+
+					<execution>
+						<id>build war</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<jrubyVerbose>true</jrubyVerbose>
+							<jrubyJvmArgs>-Djava.awt.headless=true</jrubyJvmArgs>
+							<execArgs>PROJECT_VERSION=${project.version} RAILS_RELATIVE_URL_ROOT=/vso PROJECT_VERSION=${project.version}</execArgs>
+							<command>rake</command>
+							<args>devops:build_war</args>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Attach the war -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-artifacts</id>
+						<phase>package</phase>
+						<goals>
+							<goal>attach-artifact</goal>
+						</goals>
+						<configuration>
+							<artifacts>
+								<artifact>
+									<file>${project.build.directory}/vso.war</file>
+									<type>war</type>
+								</artifact>
+							</artifacts>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>external.atlassian.jgitflow</groupId>
+				<artifactId>jgitflow-maven-plugin</artifactId>
+				<version>1.0-m4.3</version>
+				<dependencies>
+					<dependency>
+						<groupId>xerces</groupId>	<!-- workaround jgitflow https://ecosystem.atlassian.net/browse/MJF-251 -->
+						<artifactId>xercesImpl</artifactId>
+						<version>2.11.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,43 @@
+# SQLite version 3.x
+#   gem 'activerecord-jdbcsqlite3-adapter'
+#
+# Configure Using Gemfile
+# gem 'activerecord-jdbcsqlite3-adapter'
+#
+default: &default
+  adapter: oracle_enhanced
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 1000 } %>
+  database: xe
+  reaping_frequency: 10
+
+development:
+  <<: *default
+  username: rails_development
+  password: rails
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  username: rails_development
+  password: rails
+
+production:
+  <<: *default
+  username: rails_development
+  password: rails
+
+
+  # create a user in oracle:
+  #create user rails_development
+  #IDENTIFIED BY rails;
+  #grant create session to rails_development;
+  #GRANT all PRIVILEGES to rails_development;
+
+  # to change your password in dev box
+  # cd C:\work\oracle\oraclexe\app\oracle\product\11.2.0\server\bin
+  # sqlplus /nolog
+  # SQL> connect /as sysdba
+  # SQL> alter user rails_development identified by  "rails";
+  # SQL> alter user SYS identified by  "rails";
+  # ALTER USER rails_development IDENTIFIED BY "rails" ACCOUNT UNLOCK;
