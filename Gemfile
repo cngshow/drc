@@ -38,3 +38,5 @@ gem 'activerecord-oracle_enhanced-adapter'
 gem 'logging'
 gem 'sucker_punch', '~> 2.0'
 gem 'warbler'
+# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
+gem 'webpacker'

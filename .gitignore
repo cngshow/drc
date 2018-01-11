@@ -9,6 +9,7 @@
 
 # Ignore all logfiles and tempfiles.
 /logs/*
+/log/*
 /tmp/*
 !/tmp/.keep
 
@@ -27,4 +28,8 @@ version.txt
 vso.war
 jars.bat
 /public/assets/*
-/lib/oracle/
+/lib/oracle/public/packs
+/public/packs-test
+/node_modules
+/public/packs
+/lib/oracle

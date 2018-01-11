@@ -2,6 +2,8 @@ require 'warbler'
 require './lib/util/helpers'
 Rake::TaskManager.record_task_metadata = true
 include VSOUtilities
+
+WINDOWS = (java.lang.System.getProperties['os.name'] =~ /win/i)
 namespace :devops do
   def env(env_var, default)
     ENV[env_var].nil? ? default : ENV[env_var]
@@ -24,6 +26,7 @@ namespace :devops do
   version = env('PROJECT_VERSION', "unversioned")
   ENV['RAILS_RELATIVE_URL_ROOT'] = env('RAILS_RELATIVE_URL_ROOT', "/#{default_name}")
   ENV['RAILS_ENV'] = version_to_rails_mode(ENV['PROJECT_VERSION'])
+  ENV['NODE_ENV'] = ENV['RAILS_ENV']
 
   desc 'build maven\'s target folder if needed'
   task :maven_target do |task|
@@ -31,17 +34,17 @@ namespace :devops do
   end
 
   desc 'build the context file'
-  task  :generate_context_file do |task|
+  task :generate_context_file do |task|
     p task.comment
     p "context is #{context}"
-    File.open("context.txt", 'w') {|f| f.write(context) }
+    File.open("context.txt", 'w') {|f| f.write(context)}
   end
 
   desc 'build the version file'
-  task  :generate_version_file do |task|
+  task :generate_version_file do |task|
     p task.comment
     p "version is #{version}"
-    File.open("version.txt", 'w') {|f| f.write(version) }
+    File.open("version.txt", 'w') {|f| f.write(version)}
   end
 
   desc 'Build war file'
@@ -69,5 +72,19 @@ namespace :devops do
   task :bundle do |task|
     p task.comment
     sh 'bundle install'
+  end
+end
+
+if WINDOWS
+  class Webpacker::Compiler
+    include FileUtils
+    def run_webpack
+      logger.info "Compiling…"
+      command = "#{ENV['GEM_HOME']}\\bin\\bundle exec webpack"
+      logger.info "Invoking special windows version of webpack, calling:"
+      logger.info command
+      sh command
+      logger.info "Compiled all packs in #{config.public_output_path}"
+    end
   end
 end
