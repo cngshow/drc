@@ -105,4 +105,12 @@ class String
   def to_b
     boolean(self)
   end
+
+  def os_path
+    if WINDOWS
+      self.gsub!('/', java.io.File::separator)
+      self.gsub!('\\', java.io.File::separator)
+    end
+    self
+  end
 end
