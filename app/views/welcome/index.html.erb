@@ -1,2 +1,13 @@
-<h1>I don't suck</h1>
-<%=javascript_pack_tag 'hello\hello_react'  %>
+<link rel="stylesheet" href="jqwidgets-framework/styles/jqx.base.css" type="text/css" />
+<script type="text/javascript" src="jqwidgets-framework/jqwidgets/jqxcore.js"></script>
+<script type="text/javascript" src="jqwidgets-framework/jqwidgets/jqxbuttons.js"></script>
+<script type="text/javascript" src="jqwidgets-framework/scripts/demos.js"></script>
+
+<h1>Wer Awesome</h1>
+<script type="text/javascript" charset="utf-8">
+  var mode = '<%= Rails.env.to_s %>';
+  var data = JSON.parse('<%= raw @data.to_json %>');
+  console.log("data is ", data);
+</script>
+<%=javascript_pack_tag 'hello/HelloRow'.os_path!  %>
+
