@@ -3,7 +3,7 @@ require './lib/util/helpers'
 Rake::TaskManager.record_task_metadata = true
 include VSOUtilities
 
-WINDOWS = (java.lang.System.getProperties['os.name'] =~ /win/i)
+WINDOWS ||= (java.lang.System.getProperties['os.name'] =~ /win/i)
 namespace :devops do
   def env(env_var, default)
     ENV[env_var].nil? ? default : ENV[env_var]

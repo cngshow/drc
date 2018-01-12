@@ -106,11 +106,8 @@ class String
     boolean(self)
   end
 
-  def os_path
-    if WINDOWS
+  def os_path!
       self.gsub!('/', java.io.File::separator)
       self.gsub!('\\', java.io.File::separator)
-    end
-    self
   end
 end
