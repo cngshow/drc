@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SimpleDialogDemo from './dialog/dialog'
+import ParentButton from './buttons/parent'
+import PubSub from 'pubsub-js'
 
 export default class Application extends React.Component {
     constructor(props) {
@@ -9,7 +10,7 @@ export default class Application extends React.Component {
 
     render() {
         return (
-            <SimpleDialogDemo />
+            <ParentButton />
         )
     }
 }

@@ -4866,6 +4866,10 @@ public-encrypt@^4.0.0:
     parse-asn1 "^5.0.0"
     randombytes "^2.0.1"
 
+pubsub-js@^1.5.8:
+  version "1.5.8"
+  resolved "https://registry.yarnpkg.com/pubsub-js/-/pubsub-js-1.5.8.tgz#34d170caca398224ecc2219fce5c221996d0223b"
+
 pump@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/pump/-/pump-1.0.3.tgz#5dfe8311c33bbf6fc18261f9f34702c47c08a954"
