@@ -1,11 +1,12 @@
 import React from 'react';
 import Button from 'material-ui/Button';
 import ChildButton from './child'
+import ListenButton from './listener'
 
 export default class ParentButton extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {children: ['brother', 'sister'], child_data: {}}
+        this.state = {children: ['brother', 'sister', 'cousin'], child_data: {}}
         this.state.click_count = 0
         //this.childrenString = this.childrenString.bind(this);
         this.childListen = this.childListen.bind(this);
@@ -27,6 +28,7 @@ export default class ParentButton extends React.Component {
         for (let button of data) {
             result.push(<ChildButton name={button} key={button} children={this.state.children}/>)
         }
+        result.push(<ListenButton name={'listen'} key={'listen'}/>)
         return result
     }
 
@@ -61,7 +63,7 @@ export default class ParentButton extends React.Component {
     render() {
         return (
             <div>
-                <Button
+                <Button raised
                     onClick={this.parentClick}>Dad {this.state.click_count} {this.childrenString()}
                 </Button>
                 {console.log("Rendering main")}

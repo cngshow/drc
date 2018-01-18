@@ -11,3 +11,17 @@
   App.cable = ActionCable.createConsumer();
 
 }).call(this);
+
+(function() {
+    console.log("I am listening!!!");
+    App.cable.subscriptions.create({
+        channel: "WebNotificationsChannel",
+    }, {
+        received: function(data) {
+            console.log("I heard--", data);
+            PubSub.publish('WebNotificationsChannel', data);
+        }
+    });
+
+}).call(this);
+console.log('cable js loaded!!!')

@@ -73,6 +73,7 @@ GEM
     multi_json (1.13.0)
     nio4r (2.2.0-java)
     nokogiri (1.8.1-java)
+    puma (3.11.0-java)
     rack (2.0.3)
     rack-proxy (0.6.3)
       rack
@@ -162,6 +163,7 @@ DEPENDENCIES
   activerecord-oracle_enhanced-adapter
   jbuilder (~> 2.5)
   logging
+  puma
   rails (~> 5.1.4)
   sass-rails (~> 5.0)
   sucker_punch (~> 2.0)

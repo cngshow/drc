@@ -14,7 +14,7 @@ export default class ChildButton extends React.Component {
     }
 
     childClick(){
-        console.log("Clicked!!!")
+        console.log("Clicked!!!!!")
         console.log("I am ", this.props.name)
         const clickCount = this.state.click_count + 1
         this.setState({

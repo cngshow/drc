@@ -167,6 +167,7 @@ end
 ALL_LOGGERS.each do |logger|
   logger.add_appenders error_appender
 end
+#Rails.logger = $log_rails not yet compatible
 
 #WARNING, using these methods doesn't produce the correct file location in the logs.
 ALL_LOGGERS.each do |logger|
