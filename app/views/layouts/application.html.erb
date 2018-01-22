@@ -9,7 +9,7 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%=javascript_pack_tag 'application' %>
-    <%=stylesheet_pack_tag 'stylesheets/layout'.os_path! %>
+    <%=stylesheet_pack_tag 'stylesheets/layout' %>
   </head>
 
   <body>
@@ -21,7 +21,7 @@
 
       <div class="layout_header">
 
-        <img src="<%= asset_pack_path 'packs/images/VA-header.png'.os_path! %>" />
+        <img src="<%= asset_pack_path "packs/images/VA-header.png" %>" />
 
         this is the header boyee!
       </div>
