@@ -1,5 +1,6 @@
 const { environment } = require('@rails/webpacker')
 
+
 // This is a temporary workaround for generating manifest.json on Windows. The problem is already fixed in //
 // webpack-manifest-plugin 2.0.0-rc.1. Remove this piece of code when @rails/webpacker incorporates the new version
 // of webpack-manifest-plugin.
@@ -15,5 +16,7 @@ return f
 }
 }))
 
-
+require("babel-core").transform("code", {
+    plugins: ["transform-es2015-arrow-functions"]
+});
 module.exports = environment
