@@ -2,7 +2,6 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script><![endif]-->
     <title>VSO</title>
     <%= csrf_meta_tags %>
 
@@ -10,36 +9,14 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%=javascript_pack_tag 'application' %>
     <%=stylesheet_pack_tag 'stylesheets/layout' %>
+    <script type="text/javascript" charset="utf-8">
+        var img_path = "<%= asset_pack_path 'packs/images/VA-header.png' %>";
+    </script>
   </head>
-
   <body>
-
-
-  <div class="layout_wrapper">
-
-    <div class="layout_header_wrapper">
-
-      <div class="layout_header">
-
-        <img src="<%= asset_pack_path "packs/images/VA-header.png" %>" />
-
-        this is the header boyee!
-      </div>
+    <div class="kahuna">
+      <div id="app"></div>
     </div>
 
-    <div class="main_content_wrapper">
-
-      <div class="main_content">
-        <%= yield %>
-
-        <p>this is some body this is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some bodythis is some body</p>
-      </div>
-    </div>
-    <div class="layout_footer">
-      <div class="left">float left</div>
-      <div class="right">float right</div>
-      copywrite center
-    </div>
-  </div>
   </body>
 </html>
