@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SimpleDialogDemo from './components/dialog/dialog'
-import VsoHeader from './components/header/header'
+import VsoHeader from './components/layout/header'
 import VsoFooter from './components/layout/footer'
 import VsoMain from './components/layout/main'
 import PubSub from 'pubsub-js'
-
-
+// fix for IE11 allowing us to use fetch for ajax calls
+import fetch from 'isomorphic-fetch'
+import { promise, polyfill } from 'es6-promise'; polyfill();
 
 
 export default class Application extends React.Component {
