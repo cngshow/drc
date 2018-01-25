@@ -16,7 +16,4 @@ return f
 }
 }))
 
-require("babel-core").transform("code", {
-    plugins: ["transform-es2015-arrow-functions"]
-});
 module.exports = environment
