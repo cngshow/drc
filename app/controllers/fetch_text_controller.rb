@@ -10,6 +10,6 @@ class FetchTextController < ApplicationController
       vals << SecureRandom.base64
     end
 
-    render json: {text: vals.sample}
+    render json: {text: "#{params[:btn]} #{vals.sample}"}
   end
 end

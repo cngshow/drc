@@ -4,9 +4,9 @@ import VsoMainMenu from '../header/vso_main_menu'
 import axios from 'axios'
 
 class VsoHeader extends React.Component {
-    swapText(args) {
+    swapText(btn) {
         axios.get(getRoute('fetch_text_path'), {
-            params: {}
+            params: {btn: btn}
         })
         .then(function (response) {
             console.log(response);
@@ -27,8 +27,8 @@ class VsoHeader extends React.Component {
                     <VsoMainMenu />
                 </div>
                 <div className="inline_block">
-                    <Button raised onClick={this.swapText.bind(this)}>hello</Button>
-                    <Button raised onClick={this.swapText.bind(this)}>goodbye</Button>
+                    <Button raised onClick={this.swapText.bind(this, 'hello')}>hello</Button>
+                    <Button raised onClick={this.swapText.bind(this, 'goodbye')}>goodbye</Button>
                 </div>
             </div>
         )
