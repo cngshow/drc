@@ -37,13 +37,6 @@ class VsoMainMenu extends React.Component {
 
         return (
             <div className={classes.root}>
-                <Paper>
-                    <MenuList>
-                        <MenuItem>Profile</MenuItem>
-                        <MenuItem>My account</MenuItem>
-                        <MenuItem>Logout</MenuItem>
-                    </MenuList>
-                </Paper>
                 <Manager>
                     <Target>
                         <Button
