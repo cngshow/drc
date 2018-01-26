@@ -1,4 +1,10 @@
 module RouteHelper
+  include Webpacker::Helper
+  include ActionView::Helpers::AssetUrlHelper
+
+  IMAGE_EXTENSIONS = ['.jpeg', '.jpg','.png','.gif' ].freeze
+  IMAGE_ROOT_PATH = 'packs/images/'
+
   def setup_routes
     original_verbosity = $VERBOSE
     $VERBOSE = nil
@@ -29,7 +35,50 @@ module RouteHelper
       end
     end
     #$log.debug('routes hash passed to javascript is ' + @@routes_hash.to_s)
-    gon.routes = @@routes_hash
+    @@routes_hash
+  end
+
+  def setup_packed_assets
+    if Webpacker.instance.config.cache_manifest?
+      @@packed_assets ||= packed_assets
+    else
+      @@packed_assets = packed_assets
+    end
+  end
+
+  private
+
+  def packed_assets
+    h = {}
+    h[:paths] = {}
+    h[:urls] = {}
+    h[:urls][:images] = {}
+    h[:paths][:images] = {}
+    Webpacker.instance.manifest.refresh.each_pair do |k,v|
+      unless k =~ /map$/
+        url = asset_pack_url k
+        path = asset_pack_path k
+        h[:urls][k] = url
+        h[:paths][k] = path
+        if IMAGE_EXTENSIONS.include?(File.extname k)
+          rootless = k.sub(IMAGE_ROOT_PATH,'')
+          h[:urls][:images][k] = url
+          h[:urls][:images][rootless] = url
+          h[:paths][:images][k] = path
+          h[:paths][:images][rootless] = path
+        end
+      end
+    end
+    h
   end
 
 end
+=begin
+Webpacker.instance.manifest
+Webpacker.instance.manifest.refresh #gives hash
+include Webpacker::Helper
+include ActionView::Helpers::AssetUrlHelper
+include ActionView::Helpers::AssetTagHelper
+Webpacker.instance.config.cache_manifest?
+
+=end

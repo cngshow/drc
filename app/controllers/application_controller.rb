@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
   end
 
   def setup_gon
-    setup_routes
+    gon.routes = setup_routes
+    gon.pack = packed_assets
   end
 
 end
