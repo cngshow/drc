@@ -5,9 +5,9 @@ import VsoHeader from './components/layout/header'
 import VsoFooter from './components/layout/footer'
 import VsoMain from './components/layout/main'
 import PubSub from 'pubsub-js'
+
 // fix for IE11 allowing us to use fetch for ajax calls
-import fetch from 'isomorphic-fetch'
-import { promise, polyfill } from 'es6-promise'; polyfill();
+import { promise, polyfill } from 'es6-promise';
 
 
 export default class Application extends React.Component {

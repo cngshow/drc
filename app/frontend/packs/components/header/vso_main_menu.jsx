@@ -27,14 +27,20 @@ class VsoMainMenu extends React.Component {
         this.setState({ open: true });
     };
 
-    handleClose = () => {
+    handleClose(id) {
         this.setState({ open: false });
+
+        if (id.action === undefined) {
+            return false;
+        }
+        console.log("id is "+ id.action);
+        console.log("c is "+ id.component);
+        PubSub.publish('HeaderClick', {text: id.action});
     };
 
     render() {
         const { classes } = this.props;
         const { open } = this.state;
-
         return (
             <div className={classes.root}>
                 <Manager>
@@ -52,13 +58,13 @@ class VsoMainMenu extends React.Component {
                         eventsEnabled={open}
                         className={classNames({ [classes.popperClose]: !open })}
                     >
-                        <ClickAwayListener onClickAway={this.handleClose}>
+                        <ClickAwayListener onClickAway={this.handleClose.bind(this)}>
                             <Grow in={open} id="menu-list" style={{ transformOrigin: '0 0 0' }}>
                                 <Paper>
                                     <MenuList role="menu">
-                                        <MenuItem onClick={this.handleClose}>First</MenuItem>
-                                        <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                                        <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+                                        <MenuItem onClick={this.handleClose.bind(this, {action: 'first', component: 'First'})}>First</MenuItem>
+                                        <MenuItem onClick={this.handleClose.bind(this, {action: 'acct', component: 'Account'})}>Account</MenuItem>
+                                        <MenuItem onClick={this.handleClose.bind(this,  {action: 'logout', component: 'Logout'})} >Logout</MenuItem>
                                     </MenuList>
                                 </Paper>
                             </Grow>

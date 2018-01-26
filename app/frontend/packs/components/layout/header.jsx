@@ -1,17 +1,19 @@
 import React from 'react';
 import Button from 'material-ui/Button';
 import VsoMainMenu from '../header/vso_main_menu'
-import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import axios from 'axios'
 
 class VsoHeader extends React.Component {
-    swapText() {
-        fetch(gon.routes.fetch_text_path)
-            .then(checkStatus)
-            .then(parseJSON)
-            .then(function (data) {
-                PubSub.publish('HeaderClick', data);
-            }).catch(function (error) {
-            console.log('request failed', error)
+    swapText(args) {
+        axios.get(getRoute('fetch_text_path'), {
+            params: {}
+        })
+        .then(function (response) {
+            console.log(response);
+            PubSub.publish('HeaderClick', response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
         });
     }
 
@@ -19,7 +21,7 @@ class VsoHeader extends React.Component {
         return (
             <div className="kheader">
                 <div className="inline_block">
-                    <img src={img_path} alt="VA Header Image"/>
+                    <img src={getImagePath('VA-header.png')} alt="VA Header Image"/>
                 </div>
                 <div className="inline_block">
                     <VsoMainMenu />
