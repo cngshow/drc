@@ -14,14 +14,3 @@
 //= require turbolinks
 //= require_tree .
 
-function getImagePath(img) {
-    return gon.packs.paths.images[img];
-}
-
-function getImageUrl(img) {
-    return gon.packs.urls.images[img];
-}
-
-function getRoute(route) {
-    return gon.routes[route];
-}

@@ -75,16 +75,16 @@ namespace :devops do
   end
 end
 
-if WINDOWS
-  class Webpacker::Compiler
-    include FileUtils
-    def run_webpack
-      logger.info "Compiling…"
-      command = "#{ENV['GEM_HOME']}\\bin\\bundle exec webpack"
-      logger.info "Invoking special windows version of webpack, calling:"
-      logger.info command
-      sh command
-      logger.info "Compiled all packs in #{config.public_output_path}"
-    end
-  end
-end
+# if WINDOWS
+#   class Webpacker::Compiler
+#     include FileUtils
+#     def run_webpack
+#       logger.info "Compiling…"
+#       command = "#{ENV['GEM_HOME']}\\bin\\bundle exec webpack"
+#       logger.info "Invoking special windows version of webpack, calling:"
+#       logger.info command
+#       sh command
+#       logger.info "Compiled all packs in #{config.public_output_path}"
+#     end
+#   end
+# end

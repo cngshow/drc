@@ -2,10 +2,11 @@ import React from 'react';
 import Button from 'material-ui/Button';
 import VsoMainMenu from '../header/vso_main_menu'
 import axios from 'axios'
+import GH from '../helpers/gon_helper'
 
 class VsoHeader extends React.Component {
     swapText(btn) {
-        axios.get(getRoute('fetch_text_path'), {
+        axios.get(GH.getRoute('fetch_text_path'), {
             params: {btn: btn}
         })
         .then(function (response) {
@@ -21,7 +22,7 @@ class VsoHeader extends React.Component {
         return (
             <div className="kheader">
                 <div className="inline_block">
-                    <img src={getImagePath('VA-header.png')} alt="VA Header Image"/>
+                    <img src={GH.getImagePath('VA-header.png')} alt="VA Header Image"/>
                 </div>
                 <div className="inline_block">
                     <VsoMainMenu />
