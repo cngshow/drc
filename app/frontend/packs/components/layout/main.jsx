@@ -1,15 +1,25 @@
 import React from 'react';
+import First from '../cards/first_card'
+import Account from '../cards/account_card'
+import Logout from '../cards/logout_card'
+import ShowHeaders from '../cards/show_headers_card'
 
 class VsoMain extends React.Component {
     constructor() {
         super();
-        this.state = {text: 'default text'};
+        this.state = {
+            card: 'default card'
+        };
         this.headerClickSwapText = this.headerClickSwapText.bind(this);
     }
 
     headerClickSwapText(channel, data) {
-        console.log("channel is " + channel);
-        this.setState({text: data.text});
+        console.log("data is ", data);
+        this.setState({card: data.text});
+    }
+
+    shouldComponentUpdate (nextProps, nextState) {
+        return this.state.card !== nextState.card;
     }
 
     componentDidMount() {
@@ -17,10 +27,21 @@ class VsoMain extends React.Component {
     }
 
     render () {
+        let active_card = this.state.card;
+        let curr = new Date().getTime();
+        console.log("active card will be " + active_card);
+        let cards = {
+            first: <First id="first"/>,
+            account: <Account id="account"/>,
+            logout: <Logout id="logout"/>,
+            show_headers: <ShowHeaders id="show_headers"/>,
+        };
 
         return (
             <div className="kmain">
-                <p>{this.state.text}</p>
+                load time is {curr}
+                <br/>
+                {(active_card in cards) ? cards[active_card] : 'Invalid Card Id passed: ' + active_card}
             </div>
         )
     }

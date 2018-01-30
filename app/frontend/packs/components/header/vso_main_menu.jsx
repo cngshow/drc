@@ -33,8 +33,6 @@ class VsoMainMenu extends React.Component {
         if (id.action === undefined) {
             return false;
         }
-        console.log("id is "+ id.action);
-        console.log("c is "+ id.component);
         PubSub.publish('HeaderClick', {text: id.action});
     };
 
@@ -62,9 +60,10 @@ class VsoMainMenu extends React.Component {
                             <Grow in={open} id="menu-list" style={{ transformOrigin: '0 0 0' }}>
                                 <Paper>
                                     <MenuList role="menu">
-                                        <MenuItem onClick={this.handleClose.bind(this, {action: 'first', component: 'First'})}>First</MenuItem>
-                                        <MenuItem onClick={this.handleClose.bind(this, {action: 'acct', component: 'Account'})}>Account</MenuItem>
-                                        <MenuItem onClick={this.handleClose.bind(this,  {action: 'logout', component: 'Logout'})} >Logout</MenuItem>
+                                        <MenuItem onClick={this.handleClose.bind(this, {action: 'first'})}>First</MenuItem>
+                                        <MenuItem onClick={this.handleClose.bind(this, {action: 'account'})}>Account</MenuItem>
+                                        <MenuItem onClick={this.handleClose.bind(this,  {action: 'logout'})} >Logout</MenuItem>
+                                        <MenuItem onClick={this.handleClose.bind(this,  {action: 'show_headers'})} >Show Headers</MenuItem>
                                     </MenuList>
                                 </Paper>
                             </Grow>

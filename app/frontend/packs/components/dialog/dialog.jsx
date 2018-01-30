@@ -12,6 +12,7 @@ import AddIcon from 'material-ui-icons/Add';
 import Typography from 'material-ui/Typography';
 import blue from 'material-ui/colors/blue';
 
+let FontAwesome = require('@fortawesome/react-fontawesome');
 const emails = ['username@gmail.com', 'user02@gmail.com', 'gpbowman@gmail.com'];
 const styles = {
     avatar: {
@@ -50,7 +51,7 @@ class SimpleDialog extends React.Component {
                         <ListItem button onClick={() => this.handleListItemClick('addAccount')}>
                             <ListItemAvatar>
                                 <Avatar>
-                                    <AddIcon />
+                                    <FontAwesome icon="coffee"/>
                                 </Avatar>
                             </ListItemAvatar>
                             <ListItemText primary="add account" />
