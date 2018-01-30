@@ -75,16 +75,19 @@ namespace :devops do
   end
 end
 
-# if WINDOWS
-#   class Webpacker::Compiler
-#     include FileUtils
-#     def run_webpack
-#       logger.info "Compiling…"
-#       command = "#{ENV['GEM_HOME']}\\bin\\bundle exec webpack"
-#       logger.info "Invoking special windows version of webpack, calling:"
-#       logger.info command
-#       sh command
-#       logger.info "Compiled all packs in #{config.public_output_path}"
-#     end
-#   end
-# end
+if WINDOWS
+  class Webpacker::Compiler
+    def run_webpack
+      sterr, stdout, status = Open3.capture3(webpack_env, "bundle.bat exec webpack")
+
+      if status.success?
+        logger.info "Compiled all packs in #{config.public_output_path}"
+      else
+        logger.error "Compilation failed:\n#{sterr}\n#{stdout}"
+      end
+
+      status.success?
+    end
+  end
+
+end
