@@ -41,10 +41,7 @@ class ShowHeaders extends React.Component {
         console.log("show headers will unmount ok!");
     }
 
-    clicker(e) {
-        alert('you clicked ', e);
-    }
-    render() {
+     render() {
         const { rowData } = this.state;
         return (
             <div>
@@ -53,8 +50,7 @@ class ShowHeaders extends React.Component {
                     columns={[
                         {
                             Header: "Header Key",
-                            accessor: "header_key",
-                            onClick: this.clicker.bind(this)
+                            accessor: "header_key"
                         },
                         {
                             Header: "Header Value",
