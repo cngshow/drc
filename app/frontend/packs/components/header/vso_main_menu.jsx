@@ -55,6 +55,7 @@ class VsoMainMenu extends React.Component {
                         placement="bottom-start"
                         eventsEnabled={open}
                         className={classNames({ [classes.popperClose]: !open })}
+                        style={{zIndex:1000}}
                     >
                         <ClickAwayListener onClickAway={this.handleClose.bind(this)}>
                             <Grow in={open} id="menu-list" style={{ transformOrigin: '0 0 0' }}>

@@ -9,6 +9,7 @@ class FetchTextController < ApplicationController
     (1..8).each do
       vals << SecureRandom.base64
     end
+    JWebSocketSupport.broadcast("Hi guys, the time is #{Time.now}")
 
     render json: {text: "#{params[:btn]} #{vals.sample}"}
   end
