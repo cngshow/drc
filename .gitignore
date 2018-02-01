@@ -27,7 +27,6 @@
 context.txt
 version.txt
 vso.war
-jars.bat
 /public/assets/*
 /lib/oracle/public/packs
 /public/packs-test
