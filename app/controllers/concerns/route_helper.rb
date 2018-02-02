@@ -1,6 +1,7 @@
 module RouteHelper
   include Webpacker::Helper
   include ActionView::Helpers::AssetUrlHelper
+  include ServletSupport
 
   IMAGE_EXTENSIONS = ['.jpeg', '.jpg','.png','.gif' ].freeze
   IMAGE_ROOT_PATH = 'packs/images/'
@@ -44,6 +45,13 @@ module RouteHelper
     else
       @@packed_assets = packed_assets
     end
+  end
+
+  def get_websocket_url
+    u = URI root_url.chop!.reverse.sub(relative_url_root.reverse,'').reverse+"#{WEBSOCKET_ENDPOINT}"
+    scheme = secure? ? 'wss' : 'ws'
+    u.scheme = scheme
+    u.to_s
   end
 
   private

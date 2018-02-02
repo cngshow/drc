@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  include RouteHelper
+  include RouteHelper, ServletSupport
   protect_from_forgery with: :exception
   rescue_from Exception, java.lang.Throwable, :with => :internal_error
   before_action :setup_gon
@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
   def setup_gon
     gon.routes = setup_routes
     gon.packs = packed_assets
+    gon.websocket_endpoint_path = WEBSOCKET_ENDPOINT
+    gon.websocket_endpoint_url = get_websocket_url
   end
 
 end
