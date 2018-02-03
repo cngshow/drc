@@ -21,7 +21,7 @@
 #our ignores
 /target/
 /lib/jars/
-/lib/websocket/
+/lib/websocket/railswebsocket.jar
 /.project
 /.idea
 context.txt
