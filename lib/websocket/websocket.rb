@@ -17,7 +17,7 @@ class IncomingMessageObserver
   include java.util.Observer
   include Singleton
 
-  def message_recieved(&block)
+  def message_received(&block)
     if block_given?
       @blocks ||= []
       @blocks << block
@@ -50,12 +50,12 @@ MESSAGE_OBSERVER = IncomingMessageObserver.instance
 
 #to process a message
 
-MESSAGE_OBSERVER.message_recieved do |msg, chatter, websocket|
+MESSAGE_OBSERVER.message_received do |msg, chatter, websocket|
   #msg is a string, chatter is gov.va.rails.WebSocketSupport$MessageHolder, websocket is gov.va.rails.WebSocketSupport
   $log.always {"Message recieved from the client YaY!!!  #{msg}"}
 end
 
-MESSAGE_OBSERVER.message_recieved do |msg, chatter|
+MESSAGE_OBSERVER.message_received do |msg, chatter|
   $log.always {"Chat back time!!!!! #{chatter} #{chatter.java_class}"}
   received = chatter.chat("Got your message #{msg} at #{Time.now}")
   $log.always {"Response sent!"} if received
