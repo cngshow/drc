@@ -4,9 +4,12 @@ import SimpleDialogDemo from './components/dialog/dialog'
 import VsoHeader from './components/layout/header'
 import VsoFooter from './components/layout/footer'
 import VsoMain from './components/layout/main'
+import VsoAppBar from './vso_app_bar'
+import AppHeaderBar from './components/header/app_header_bar'
+
 import PubSub from 'pubsub-js'
 import fontawesome from '@fortawesome/fontawesome'
-import WebSocketHelper from './utilities/websocket'
+
 
 // fix for IE11 allowing us to use axios/fetch for ajax calls
 import { promise, polyfill } from 'es6-promise'; polyfill();
@@ -22,6 +25,8 @@ export default class Application extends React.Component {
     render() {
         return (
             <div>
+                {/*<AppHeaderBar/>*/}
+                {/*<hr/>*/}
                 <VsoHeader className="kheader"/>
                 <VsoMain className="kmain"/>
                 <VsoFooter className="kfooter"/>

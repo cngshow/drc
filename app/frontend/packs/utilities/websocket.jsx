@@ -1,11 +1,10 @@
 import PubSub from 'pubsub-js'
 
-
 class WebSocketHelper {
     constructor(channel) {
         this.channel = channel;
-        //this.websocket = new WebSocket(gon.websocket_endpoint_url);
-        this.websocket = new WebSocket('ws://localhost:8090/websocket/rails');
+        this.websocket = new WebSocket(gon.websocket_endpoint_url);
+        // this.websocket = new WebSocket('ws://localhost:8090/websocket/rails');
         this.chat = this.chat.bind(this);
         this.websocket.onopen = this.onopen.bind(this);
         this.websocket.onmessage = this.onmessage.bind(this);
@@ -19,7 +18,7 @@ class WebSocketHelper {
 
     onmessage(evt) {
         console.log("onmessage");
-        PubSub.publish(this.channel, evt.data)
+        PubSub.publish(this.channel, evt.data);
     }
 
     onclose() {

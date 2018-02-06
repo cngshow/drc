@@ -1,4 +1,5 @@
 import React from 'react';
+import WebsocketChat from '../../components/websocket_chat';
 
 class Account extends React.Component {
     componentDidMount() {
@@ -16,6 +17,7 @@ class Account extends React.Component {
         return (
             <div style={style}>
                 this is the {this.props.id} card
+                <WebsocketChat />
             </div>
         )
     }
