@@ -9,8 +9,8 @@ class FetchTextController < ApplicationController
     (1..8).each do
       vals << SecureRandom.base64
     end
-    JWebSocketSupport.broadcast("Hi guys, the time is #{Time.now}")
-
+    WebSocketSupport.broadcast_all(message: "Hi guys, the time is #{Time.now}")
+    WebSocketSupport.broadcast(channel: WebSocketSupport::Channels::ROOT_BEER, message: "Root beer time!! #{Time.now}")
     render json: {text: "#{params[:btn]} #{vals.sample}"}
   end
 end
