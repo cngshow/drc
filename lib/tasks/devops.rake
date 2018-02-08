@@ -106,7 +106,7 @@ namespace :devops do
   task :move_war do |task|
     FileUtils.copy(src_war,tomcat_war)
     FileUtils.remove_dir(tomcat_war_dst) rescue nil
-    Dir.mkdir(tomcat_war_dst) unless File.exists?(tomcat_war_dst
+    Dir.mkdir(tomcat_war_dst) unless File.exists?(tomcat_war_dst)
   end
 
   ld = 'local deploy'
