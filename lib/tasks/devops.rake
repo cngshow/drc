@@ -78,6 +78,7 @@ namespace :devops do
   slash = java.io.File.separator #or FILE::ALT_SEPARATOR
   src_war = "#{VSOUtilities::MAVEN_TARGET_DIRECTORY}#{slash}#{Rails.application.class.parent_name.to_s.downcase}.war"
   tomcat_war_dst =  "#{ENV['TOMCAT_DEPLOY_DIRECTORY']}"
+  Dir.mkdir(tomcat_war_dst) unless File.exists?(tomcat_war_dst)
   tomcat_war ="#{tomcat_war_dst}#{slash}#{Rails.application.class.parent_name.to_s.downcase}.war"
   tomcat_base_dir = "#{tomcat_war_dst}#{slash}..#{slash}"
 
