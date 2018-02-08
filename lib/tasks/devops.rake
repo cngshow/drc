@@ -104,7 +104,7 @@ namespace :devops do
   desc ld
   task :move_war do |task|
     FileUtils.copy(src_war,tomcat_war)
-    FileUtils.remove_dir(tomcat_war_dst)
+    FileUtils.remove_dir(tomcat_war_dst) rescue nil
   end
 
   ld = 'local deploy'
