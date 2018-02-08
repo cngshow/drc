@@ -78,13 +78,20 @@ namespace :devops do
   slash = java.io.File.separator #or FILE::ALT_SEPARATOR
   src_war = "#{VSOUtilities::MAVEN_TARGET_DIRECTORY}#{slash}#{Rails.application.class.parent_name.to_s.downcase}.war"
   tomcat_war_dst =  "#{ENV['TOMCAT_DEPLOY_DIRECTORY']}"
-  tomcat_war ="#{tomcat_war_dst}#{slash}#{Rails.application.class.parent_name.to_s.downcase}.war"
+  app_name = Rails.application.class.parent_name.to_s.downcase
+  tomcat_war ="#{tomcat_war_dst}#{slash}#{app_name}.war"
   tomcat_base_dir = "#{tomcat_war_dst}#{slash}..#{slash}"
 
   desc 'stop local tomcat instance'
   task :stop_tomcat do |task|
     p task.comment
-    system "cd #{tomcat_base_dir} && .#{slash}bin#{slash}shutdown" # we will not use sh, best effort to stop tomcat, it  might not be running.
+    if WINDOWS
+      command = "cd #{tomcat_base_dir} && .#{slash}bin#{slash}shutdown"
+    else
+      command = "cd #{tomcat_base_dir} && .#{slash}bin#{slash}shutdown.sh &"
+    end
+    p command
+    system command # we will not use sh, best effort to stop tomcat, it  might not be running.
   end
 
   desc 'start local tomcat instance'
@@ -93,20 +100,19 @@ namespace :devops do
     ENV['LOAD_WEBSOCKET_JARS'] = nil
     if WINDOWS
       command = %q{start "cd #{tomcat_base_dir} && .#{slash}bin#{slash}startup"}
-      p command
     else
-      p command
-      command = "cd #{tomcat_base_dir} && .#{slash}bin#{slash}startup &"
+      command = "cd #{tomcat_base_dir} && .#{slash}bin#{slash}startup.sh &"
     end
-    sh "cd #{tomcat_base_dir} && .#{slash}bin#{slash}startup"
+    p command
+    sh command
   end
 
   ld = 'move war'
   desc ld
   task :move_war do |task|
-    FileUtils.copy(src_war,tomcat_war)
-    FileUtils.remove_dir(tomcat_war_dst) rescue nil
     Dir.mkdir(tomcat_war_dst) unless File.exists?(tomcat_war_dst)
+    FileUtils.copy(src_war,tomcat_war)
+    FileUtils.remove_dir("#{tomcat_war_dst}/#{app_name}") rescue nil
   end
 
   ld = 'local deploy'
