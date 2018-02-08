@@ -33,7 +33,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
-gem 'activerecord-oracle_enhanced-adapter'
+#gem 'activerecord-oracle_enhanced-adapter'
+# Use jdbcsqlite3 as the database for Active Record
+gem 'activerecord-jdbcsqlite3-adapter'
 #gem install trinidad --pre (do this once)
 gem 'logging'
 gem 'sucker_punch', '~> 2.0'

@@ -1,4 +1,4 @@
-$CLASSPATH << './lib/oracle/ojdbc8.jar'
+#$CLASSPATH << './lib/oracle/ojdbc8.jar'
 require_relative 'boot'
 
 require 'rails/all'
