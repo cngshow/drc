@@ -77,9 +77,9 @@ namespace :devops do
 
   slash = java.io.File.separator #or FILE::ALT_SEPARATOR
   src_war = "#{VSOUtilities::MAVEN_TARGET_DIRECTORY}#{slash}#{Rails.application.class.parent_name.to_s.downcase}.war"
-  tomcat_war_dst =  "#{ENV['TOMCAT_DEPLOY_DIRECTORY']}#{slash}#{Rails.application.class.parent_name.to_s.downcase}"
-  tomcat_war ="#{tomcat_war_dst}.war"
-  tomcat_base_dir = "#{tomcat_war_dst}#{slash}..#{slash}..#{slash}"
+  tomcat_war_dst =  "#{ENV['TOMCAT_DEPLOY_DIRECTORY']}"
+  tomcat_war ="#{tomcat_war_dst}#{slash}#{Rails.application.class.parent_name.to_s.downcase}.war"
+  tomcat_base_dir = "#{tomcat_war_dst}#{slash}..#{slash}"
 
   desc 'stop local tomcat instance'
   task :stop_tomcat do |task|
@@ -95,6 +95,7 @@ namespace :devops do
       command = %q{start "cd #{tomcat_base_dir} && .#{slash}bin#{slash}startup"}
       p command
     else
+      p command
       command = "cd #{tomcat_base_dir} && .#{slash}bin#{slash}startup &"
     end
     sh "cd #{tomcat_base_dir} && .#{slash}bin#{slash}startup"
