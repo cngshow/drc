@@ -14,6 +14,6 @@ class ApplicationController < ActionController::Base
     gon.packs = packed_assets
     gon.websocket_endpoint_path = WEBSOCKET_ENDPOINT
     gon.websocket_endpoint_url = get_websocket_url
+    gon.websocket_channel = Hash[WebSocketSupport::Channels.constants.zip( WebSocketSupport::Channels.constants.map {|c| WebSocketSupport::Channels.const_get(c)})]
   end
-
 end

@@ -76,7 +76,7 @@ class WebsocketChat extends React.Component {
 
     componentDidMount() {
         PubSub.subscribe('myChannel', this.onmessage);
-        this.websocket = new WebSocketHelper('root_beer');//todo #figure out a way to bind the channels to js dynamically via irb
+        this.websocket = new WebSocketHelper(gon.websocket_channel.ROOT_BEER);
     }
 
     submitMessage(e) {

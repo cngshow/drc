@@ -35,7 +35,6 @@ class WebSocketHelper {
 
     onclose() {
         console.log("onclose");
-        this.websocket.close();//We need to research the delta between this and close below.
     }
 
     close() {

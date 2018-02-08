@@ -178,36 +178,36 @@ module WebSocketSupport
   end
 end
 
-WEBSOCKET_HELPER = WebSocketSupport::WebSocketMessageObserver.instance
+WEBSOCKET_MSG_RCVD = WebSocketSupport::WebSocketMessageObserver.instance
 
 #to process a message
 
-WEBSOCKET_HELPER.message_received do |msg, chatter, websocket|
+WEBSOCKET_MSG_RCVD.message_received do |msg, chatter, websocket|
   #msg is a string, chatter is gov.va.rails.WebSocketSupport$MessageHolder, websocket is gov.va.rails.WebSocketSupport
   $log.always {"Message recieved from the client YaY!!!  #{msg}"}
 end
 
-WEBSOCKET_HELPER.message_received do |msg, chatter|
+WEBSOCKET_MSG_RCVD.message_received do |msg, chatter|
   $log.always {"Chat back time!!!!! #{chatter} #{chatter.java_class}"}
   received = chatter.chat("Got your message #{msg} at #{Time.now}")
   $log.always {"Response sent!"} if received
   $log.always {"Response not sent!"} unless received
 end
 
-WEBSOCKET_HELPER.channel_message_received(channel: WebSocketSupport::Channels::ROOT_BEER) do |msg|
+WEBSOCKET_MSG_RCVD.channel_message_received(channel: WebSocketSupport::Channels::ROOT_BEER) do |msg|
   $log.always("from a websocket on the root beer channel I got the message #{msg}")
 end
 
-WEBSOCKET_HELPER.channel_message_received(channel: WebSocketSupport::Channels::ROOT_BEER) do |msg, chatter|
+WEBSOCKET_MSG_RCVD.channel_message_received(channel: WebSocketSupport::Channels::ROOT_BEER) do |msg, chatter|
   chatter.chat("got the root beer! #{Time.now}")
 end
 
-WEBSOCKET_HELPER.channel_message_received(channel: WebSocketSupport::Channels::COKE) do |msg|
+WEBSOCKET_MSG_RCVD.channel_message_received(channel: WebSocketSupport::Channels::COKE) do |msg|
   $log.always("from a websocket on the coke channel I got the message #{msg}")
 end
 
 
 at_exit do
-  JWebSocketSupport.getMessageNotifier.deleteObserver(WEBSOCKET_HELPER) #no memory leaks on undeploy!
+  JWebSocketSupport.getMessageNotifier.deleteObserver(WEBSOCKET_MSG_RCVD) #no memory leaks on undeploy!
   JWebSocketSupport.getWebSocketRemovedNotifier.deleteObserver(WebSocketSupport::WebSocketRemovedObserver.instance) #no memory leaks on undeploy!
 end
