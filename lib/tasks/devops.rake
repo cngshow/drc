@@ -136,6 +136,31 @@ namespace :devops do
   desc lbd
   task :lbd => :local_build_and_deploy
 
+  wbdescr = 'build websocket jar and deploy'
+  desc wbdescr
+  task :websocket do |task|
+    p task.comment
+    pull = "cd #{ENV['WEBSOCKET_POM_LOC']} && git pull"
+    build = "cd #{ENV['WEBSOCKET_POM_LOC']} && mvn clean package"
+    puts "Executing: #{pull}"
+    sh pull
+    puts "Executing #{build}"
+    sh build
+    jars = Dir.glob("#{ENV['WEBSOCKET_POM_LOC']}#{slash}target/*.jar")#glob will not work with windows style slash before the 'glob', interesting..
+    puts "I will move the following jars: #{jars}"
+    Dir.mkdir(tomcat_war_dst) unless File.exists?(tomcat_war_dst)
+    jars.each do |jar|
+      copy_rails = "#{Rails.root}#{slash}lib#{slash}websocket"
+      puts "Copying #{jar} to #{copy_rails}"
+      FileUtils.copy(jar,"#{Rails.root}#{slash}lib#{slash}websocket")
+      puts 'Done!'
+      copy_tomcat = "#{tomcat_base_dir}lib"
+      puts "Copying #{jar} to #{copy_tomcat}"
+      FileUtils.copy(jar,copy_tomcat)
+      puts 'Done!'
+    end
+  end
+
 end
 
 if WINDOWS

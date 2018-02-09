@@ -1,7 +1,10 @@
 require './lib/websocket/channels'
 if ENV['LOAD_WEBSOCKET_JARS']
   urls = []
-  urls << java.io.File.new("#{Rails.root}/lib/websocket/railswebsocket.jar").toURI.toURL
+  jars = Dir.glob("#{Rails.root}/lib/websocket/*.jar")
+  jars.each do |j|
+    urls << java.io.File.new(j).toURI.toURL
+  end
   urls << java.io.File.new("#{Rails.root}/lib/jars/javax.websocket-api.jar").toURI.toURL
   urls << java.io.File.new("#{Rails.root}/lib/jars/juli.jar").toURI.toURL
 
@@ -10,7 +13,7 @@ if ENV['LOAD_WEBSOCKET_JARS']
   end
 end
 
-java_import 'gov.va.rails.WebSocketSupport' do |p, c|
+java_import 'gov.va.rails.websocket.WebSocketSupport' do |p, c|
   'JWebSocketSupport'
 end
 
