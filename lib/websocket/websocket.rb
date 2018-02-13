@@ -68,7 +68,7 @@ module WebSocketSupport
         WebSocketSupport.websockets.each_pair do |key, value|
           value.delete_if do |socket|
             remove = socket.eql? websocket
-            $log.always {"Removal of #{websocket} occured!"}
+            $log.always {"Removal of #{websocket} occurred!"}
             remove
           end
         end
