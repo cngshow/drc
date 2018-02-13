@@ -6,6 +6,7 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import WebSocketHelper from '../../packs/utilities/websocket'
 import PubSub from 'pubsub-js'
+import MyForm from '../components/crap'
 
 const styles = theme => ({
     container: {
@@ -134,6 +135,7 @@ class WebsocketChat extends React.Component {
 
                     <Button raised type="submit">Submit</Button>
                 </form>
+                <MyForm/>
             </div>
         );
     }
