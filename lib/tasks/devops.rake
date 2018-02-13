@@ -100,7 +100,9 @@ namespace :devops do
     p task.comment
     ENV['LOAD_WEBSOCKET_JARS'] = nil
     if WINDOWS
-      command = %q{start "cd #{tomcat_base_dir} && .#{slash}bin#{slash}startup"}
+      #to get help screen for start type:
+      # start /max start /?
+      command = %Q{start "Tomcat: Meow!" /D #{tomcat_base_dir}#{slash}bin#{slash} startup}
     else
       command = "cd #{tomcat_base_dir} && .#{slash}bin#{slash}startup.sh &"
     end

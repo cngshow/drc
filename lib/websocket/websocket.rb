@@ -62,13 +62,13 @@ module WebSocketSupport
     include java.util.Observer
     include Singleton, WebSocketSupport::Channels
 
-    def update(jobservable, nothing)
-      $log.always("Attempting removal #{jobservable}, #{jobservable.java_class}, with #{nothing}")
+    def update(jobservable, websocket)
+      $log.always("Attempting removal #{jobservable}, #{jobservable.java_class}, with #{websocket}")
       WEBSOCKET_LOCK.synchronized do
         WebSocketSupport.websockets.each_pair do |key, value|
           value.delete_if do |socket|
-            remove = socket.eql? jobservable
-            $log.always {"Removal #{jobservable}, #{jobservable.java_class} occured!"}
+            remove = socket.eql? websocket
+            $log.always {"Removal of #{websocket} occurred!"}
             remove
           end
         end
