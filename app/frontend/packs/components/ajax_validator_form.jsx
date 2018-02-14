@@ -44,11 +44,9 @@ class AjaxValidatorForm extends React.Component {
 */
     handleSubmit(e) {
         e.preventDefault();
-        let reset = false;
         let that = this;
         let form = this.refs[this.props.formName];
         let data = this.toJSONString();
-
         axios({
             method: 'post',
             url: this.props.action_path,
@@ -58,14 +56,15 @@ class AjaxValidatorForm extends React.Component {
             console.log('response data is', response.data);
             that.props.onsuccess(response.data);
             that.setState({email: null, cris: null});
-            // form.val('');
-            // that.reset();
-            // that.initFocus();
+            // resetValidations built in function with <FormValidator>
+            // TODO: isolate "state" of form inputs in order to not delete ALL state
+            form.resetValidations();
         })
         .catch(function (error) {
             console.log(error);
             that.props.onerror(error);
         });
+
     }
 
     toJSONString() {
@@ -117,14 +116,16 @@ class AjaxValidatorForm extends React.Component {
             });
         });
         return (
-            <ValidatorForm
-                ref={this.props.formName}
-                onSubmit={(e) => this.handleSubmit(e)}
-                onChange={(e) => this.handleChange(e)}
-                onError={errors => console.log(errors)}
-            >
-                {children}
-            </ValidatorForm>
+            <div>
+                <ValidatorForm
+                    ref={this.props.formName}
+                    onSubmit={(e) => this.handleSubmit(e)}
+                    onChange={(e) => this.handleChange(e)}
+                    onError={errors => console.log(errors)}
+                >
+                    {children}
+                </ValidatorForm>
+            </div>
         );
     }
 }

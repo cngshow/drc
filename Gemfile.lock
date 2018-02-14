@@ -51,7 +51,6 @@ GEM
     erubi (1.7.0)
     execjs (2.7.0)
     ffi (1.9.18)
-    ffi (1.9.18-java)
     ffi (1.9.21-java)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
@@ -182,7 +181,6 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   logging
   rails (~> 5.1.4)
-  rake
   sass-rails (~> 5.0)
   sucker_punch (~> 2.0)
   therubyrhino
