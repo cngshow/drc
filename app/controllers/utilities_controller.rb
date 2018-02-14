@@ -8,4 +8,9 @@ class UtilitiesController < ApplicationController
     end
     render :json => headers
   end
+
+  def ajax_form_submission
+    g = params
+    render :json => params
+  end
 end

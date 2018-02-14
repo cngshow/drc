@@ -27,7 +27,7 @@ export default class MyForm extends React.Component {
                 onError={errors => console.log(errors)}
             >
                 <TextValidator
-                    floatingLabelText="Email"
+                    label="Email"
                     onChange={this.handleChange}
                     name="email"
                     value={email}

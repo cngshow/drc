@@ -25,6 +25,9 @@ const styles = {
 
 function handleClose(action) {
     console.log("we are closing...." + action);
+
+
+
 }
 
 class VsoAppBar extends React.Component {

@@ -28,8 +28,8 @@ class VsoHeader extends React.Component {
                     <VsoMainMenu />
                 </div>
                 <div className="inline_block">
-                    <Button raised onClick={this.swapText.bind(this, 'hello')}>hello</Button>
-                    <Button raised onClick={this.swapText.bind(this, 'goodbye')}>goodbye</Button>
+                    <Button raised="true" onClick={this.swapText.bind(this, 'hello')}>hello</Button>
+                    <Button raised="true" onClick={this.swapText.bind(this, 'goodbye')}>goodbye</Button>
                 </div>
             </div>
         )
