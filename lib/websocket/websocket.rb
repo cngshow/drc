@@ -1,4 +1,5 @@
 require './lib/websocket/channels'
+
 if ENV['LOAD_WEBSOCKET_JARS']
   urls = []
   jars = Dir.glob("#{Rails.root}/lib/websocket/*.jar")
@@ -9,7 +10,7 @@ if ENV['LOAD_WEBSOCKET_JARS']
   urls << java.io.File.new("#{Rails.root}/lib/jars/juli.jar").toURI.toURL
 
   urls.each do |url|
-    java.lang.ClassLoader.getSystemClassLoader.addURL(url) #put it high up on the classloader chain so Tomcat finds it and instantiates with the first 'ws://...' request.
+    java.lang.ClassLoader.getSystemClassLoader.addURL(url) #put it high up on the classloader chain so Tomcat finds it and instantiates with the first 'ws(s)://...' request.
   end
 end
 
@@ -22,7 +23,8 @@ module WebSocketSupport
   WEBSOCKET_LOCK = java.lang.Object.new
 
   class << self
-    attr_accessor :websockets
+    attr_accessor :websockets_by_channel
+    attr_accessor :websockets_by_client
 
     def validate(channel:)
       valid = WebSocketSupport::Channels.constants.map {|c| WebSocketSupport::Channels.const_get(c)}
@@ -33,16 +35,25 @@ module WebSocketSupport
       JWebSocketSupport.broadcast(message)
     end
 
+    def client_chat(uuid:, client_uuid:, message:)
+      chat(key: [uuid, client_uuid], message: message, collection: WebSocketSupport.websockets_by_client)
+    end
+
     def broadcast(channel:, message:)
-      $log.always("broadcast to #{channel} with message #{message}")
-      validate(channel: channel)
-      $log.always("channel #{channel} is valid. The websockets are: #{WebSocketSupport.websockets[channel]}")
-      $log.always("All the websockets are: #{WebSocketSupport.websockets}")
+      validate(channel: key)
+      chat(key: channel, message: message, collection: WebSocketSupport.websockets_by_channel)
+    end
+
+    private
+    def chat(key:, message:, collection:)
+      $log.always("broadcast to #{key} with message #{message}")
+      $log.always("The websockets are: #{collection[key]}")
+      $log.always("All the websockets are: #{collection}")
       WEBSOCKET_LOCK.synchronized do
         invalid_sockets = []
-        WebSocketSupport.websockets[channel]&.each do |socket|
+        collection[key]&.each do |socket|
           if socket.isPresent
-            $log.always {"broadcasting to #{channel} on #{socket}"}
+            $log.always {"broadcasting to #{key} on #{socket}"}
             success = JWebSocketSupport.chat(socket, message)
             $log.always {"broadcast to #{socket} was successful? #{success}"}
           else
@@ -50,10 +61,12 @@ module WebSocketSupport
             $log.always {"broadcast of #{message} to #{socket} failed as the socket is no longer active."}
           end
         end
-        WebSocketSupport.websockets[channel] = WebSocketSupport.websockets[channel] - invalid_sockets rescue WebSocketSupport.websockets[channel] #in case we are nil we stay nil.
+        collection[key] = collection[key] - invalid_sockets rescue collection[key] #in case we are nil we stay nil.
       end
     end
   end
+  WebSocketSupport.websockets_by_channel = HashWithIndifferentAccess.new
+  WebSocketSupport.websockets_by_client = {}
 
   module TerminateNotifications
   end
@@ -65,11 +78,13 @@ module WebSocketSupport
     def update(jobservable, websocket)
       $log.always("Attempting removal #{jobservable}, #{jobservable.java_class}, with #{websocket}")
       WEBSOCKET_LOCK.synchronized do
-        WebSocketSupport.websockets.each_pair do |key, value|
-          value.delete_if do |socket|
-            remove = socket.eql? websocket
-            $log.always {"Removal of #{websocket} occurred!"}
-            remove
+        [WebSocketSupport.websockets_by_channel, WebSocketSupport.websockets_by_client].each do |hash|
+          hash.each_pair do |key, value|
+            value.delete_if do |socket|
+              remove = socket.eql? websocket
+              $log.always {"Removal of #{websocket} occurred from #{hash}"}
+              remove
+            end
           end
         end
       end
@@ -78,7 +93,6 @@ module WebSocketSupport
     private
     def initialize
       JWebSocketSupport.getWebSocketRemovedNotifier.addObserver(self)
-      WebSocketSupport.websockets = HashWithIndifferentAccess.new
     end
   end
 
@@ -109,9 +123,8 @@ module WebSocketSupport
       WEBSOCKET_LOCK.synchronized do
         msg = messageHolder.get_message
         websocket = messageHolder.getWebSocketSupport
-        channel = websocket.getChannel #will always be nil/null on the first message
-        channel_websockets = channel.nil? ? [] : WebSocketSupport.websockets[channel]
-        $log.always {"This websocket is chatting on channel #{channel}"}
+        intial_data = JSON.parse websocket.getInitialData rescue nil#will always be nil/null on the first message
+        channel = intial_data[WebSocketSetup::BROADCAST_CHANNEL_SETUP] rescue nil
         @on_message_blocks.each do |block|
           terminate_notifications = false
           begin
@@ -139,20 +152,21 @@ module WebSocketSupport
       end
     end
 
-    def add_websocket(channel:, websocket:)
+    def add_websocket(channel:, websocket:, uuid:, counter:)
       $log.always("Adding to channel #{channel} websocket #{websocket}")
       WebSocketSupport.validate(channel: channel)
       $log.always("Channel #{channel} is valid")
       WEBSOCKET_LOCK.synchronized do
-        websocket.setChannel(channel)
-        WebSocketSupport.websockets[channel] ||= []
-        WebSocketSupport.websockets[channel] << websocket unless WebSocketSupport.websockets[channel].include? websocket
+        WebSocketSupport.websockets_by_channel[channel] ||= []
+        WebSocketSupport.websockets_by_channel[channel] << websocket unless WebSocketSupport.websockets_by_channel[channel].include? websocket
+        WebSocketSupport.websockets_by_client[[uuid, counter]] ||= []
+        WebSocketSupport.websockets_by_client[[uuid, counter]] << websocket unless WebSocketSupport.websockets_by_client[[uuid, counter]].include? websocket
       end
     end
 
     private
     def initialize
-      WebSocketSupport::WebSocketRemovedObserver.instance #forces a registration, observe removed websocket before we receive messages.
+      WebSocketSupport::WebSocketRemovedObserver.instance #forces a registration, observe removed websockets before we receive messages.
       $log.always("About to register as an observer")
       JWebSocketSupport.getMessageNotifier.addObserver(self)
       $log.always("Registered as an observer")
@@ -162,14 +176,18 @@ module WebSocketSupport
     #this fellow is (and must remain) the first registered block for websocket message processing
     #it checks to see if the websocket should be registered against a broadcast channel
     WebSocketMessageObserver.instance.message_received do |msg, chatter, websocket|
-      if websocket.getChannel.nil?
+      if websocket.getInitialData.nil?
         $log.always("first block got msg #{msg}")
         rval = nil
         begin
           hash = HashWithIndifferentAccess.new JSON.parse msg
+          websocket.setInitialData(msg)
           $log.always("first block hash #{hash}")
-          if hash[WebSocketSupport::ChannelSetup::BROADCAST_CHANNEL_SETUP]
-            WebSocketMessageObserver.instance.add_websocket(channel: hash[ChannelSetup::BROADCAST_CHANNEL_SETUP], websocket: websocket)
+          channel = hash[WebSocketSupport::WebSocketSetup::BROADCAST_CHANNEL_SETUP]
+          uuid = hash[WebSocketSupport::WebSocketSetup::SERVER_UUID]
+          client_uuid = hash[WebSocketSupport::WebSocketSetup::CLIENT_UUID]
+          if (channel && uuid && client_uuid)
+            WebSocketMessageObserver.instance.add_websocket(channel: channel, uuid: uuid, client_uuid: client_uuid, websocket: websocket)
             rval = TerminateNotifications
           end
         rescue => ex
@@ -179,7 +197,40 @@ module WebSocketSupport
       end
     end
   end
+
+  class Logger
+    include gov.va.rails.websocket.RailsLogging
+
+    def trace(msg, ex)
+      $log.always(LEX(msg, ex)) #todo trace
+    end
+
+    def debug(msg, ex)
+      $log.always(LEX(msg, ex)) #todo debug
+    end
+
+    def info(msg, ex)
+      $log.always(LEX(msg, ex)) #todo info
+    end
+
+    def warn(msg, ex)
+      $log.warn(LEX(msg, ex))
+    end
+
+    def error(msg, ex)
+      $log.error(LEX(msg, ex))
+    end
+
+    def fatal(msg, ex)
+      $log.fatal(LEX(msg, ex))
+    end
+
+    def always(msg, ex)
+      $log.always(LEX(msg, ex))
+    end
+  end
 end
+JWebSocketSupport.setLogger(WebSocketSupport::Logger.new)
 
 WEBSOCKET_MSG_RCVD = WebSocketSupport::WebSocketMessageObserver.instance
 
@@ -209,8 +260,8 @@ WEBSOCKET_MSG_RCVD.channel_message_received(channel: WebSocketSupport::Channels:
   $log.always("from a websocket on the coke channel I got the message #{msg}")
 end
 
-
 at_exit do
   JWebSocketSupport.getMessageNotifier.deleteObserver(WEBSOCKET_MSG_RCVD) #no memory leaks on undeploy!
   JWebSocketSupport.getWebSocketRemovedNotifier.deleteObserver(WebSocketSupport::WebSocketRemovedObserver.instance) #no memory leaks on undeploy!
+  JWebSocketSupport.setLogger(nil) #no memory leaks on undeploy!
 end

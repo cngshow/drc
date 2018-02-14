@@ -5,6 +5,7 @@ Rake::TaskManager.record_task_metadata = true
 include VSOUtilities
 
 WINDOWS ||= (java.lang.System.getProperties['os.name'] =~ /win/i)
+
 namespace :devops do
   def env(env_var, default)
     ENV[env_var].nil? ? default : ENV[env_var]
@@ -142,6 +143,14 @@ namespace :devops do
   desc wbdescr
   task :websocket do |task|
     p task.comment
+    tomcat_copy_dir = "#{tomcat_base_dir}lib"
+    # Grabs all previous websocket_VSO_snapshots created by Maven -- needs to mirror POM.xml <version>
+    previous_rails_snapshots = Dir.glob(File.join("lib", "websocket", "websocket_vso*.jar"))
+    previous_tomcat_snapshots = Dir.glob("#{tomcat_copy_dir}/websocket_vso*.jar")
+    # Combine all of the previous snapshots
+    previous_snapshots = previous_rails_snapshots.concat previous_tomcat_snapshots
+    # Delete previous websocket_vso snapshots in order to prevent duplicates
+    previous_snapshots.each { |snap| File.delete(snap)}
     pull = "cd #{ENV['WEBSOCKET_POM_LOC']} && git pull"
     build = "cd #{ENV['WEBSOCKET_POM_LOC']} && mvn clean package"
     puts "Executing: #{pull}"
@@ -156,9 +165,8 @@ namespace :devops do
       puts "Copying #{jar} to #{copy_rails}"
       FileUtils.copy(jar,"#{Rails.root}#{slash}lib#{slash}websocket")
       puts 'Done!'
-      copy_tomcat = "#{tomcat_base_dir}lib"
-      puts "Copying #{jar} to #{copy_tomcat}"
-      FileUtils.copy(jar,copy_tomcat)
+      puts "Copying #{jar} to #{tomcat_copy_dir}"
+      FileUtils.copy(jar,tomcat_copy_dir)
       puts 'Done!'
     end
   end

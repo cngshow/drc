@@ -1,5 +1,10 @@
 import PubSub from 'pubsub-js'
 
+const guid=()=> {
+    const s4=()=> Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+    return `${s4() + s4()}-${s4()}-${s4()}-${s4()}-${s4() + s4() + s4()}`;
+}
+
 class WebSocketHelper {
     constructor(channel = null) {
         this.channel = channel;
@@ -10,15 +15,15 @@ class WebSocketHelper {
         this.websocket.onmessage = this.onmessage.bind(this);
         this.websocket.onclose = this.onclose.bind(this);
         this.close = this.close.bind(this);
-        this.channeled = false;
+        this.setup = false;
+        this.socket_setup = {'broadcast_channel_setup': this.channel, uuid: gon.uuid, client_uid: guid()} //todo, bind this string to ruby code via irb somewhere.
     }
 
     onopen() {
-        if ((this.channel != null) && !this.channeled) {
+        if ((this.socket_setup != null) && !this.setup) {
             try {
-                let socket_setup = {'broadcast_channel_setup': this.channel} //todo, bind this string to ruby code via irb somewhere.
-                this.websocket.send(JSON.stringify(socket_setup));
-                this.channeled = true; //Do we need to do this?  Is onOpen called for every message sent?
+                this.websocket.send(JSON.stringify(this.socket_setup));
+                this.setup = true; //Do we need to do this?  Is onOpen called for every message sent?
             }
             catch (err){
                 console.log("I could not register this websocket against " + this.channel);
