@@ -16,5 +16,6 @@ class ApplicationController < ActionController::Base
     gon.websocket_endpoint_url = get_websocket_url
     @@channels ||= Hash[WebSocketSupport::Channels.constants.zip( WebSocketSupport::Channels.constants.map {|c| WebSocketSupport::Channels.const_get(c)})]
     gon.websocket_channel = @@channels
+    gon.uuid = SecureRandom.uuid
   end
 end

@@ -49,7 +49,7 @@ module RouteHelper
 
   def get_websocket_url
     u = URI root_url.chop!.reverse.sub(relative_url_root.reverse,'').reverse+"#{WEBSOCKET_ENDPOINT}"
-    u.port = 8090
+    u.port = 8090 if Rails.env.development?
     scheme = secure? ? 'wss' : 'ws'
     u.scheme = scheme
     u.to_s
