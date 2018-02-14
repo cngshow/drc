@@ -10,38 +10,26 @@ class AjaxValidatorForm extends React.Component {
         this.state = {};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
-        // this.reset = this.reset.bind(this);
+        this.reset = this.reset.bind(this);
     }
 
     handleChange(event) {
         let v = event.target.value;
         this.setState({[event.target.name]: v});
     }
-/*
-    reset() {
-        this.setState({});
-        console.log("what", this.refs);
-        this.refs['email'].props.value = '';
-        console.log("resetting...", ReactDOM.findDOMNode(this.refs[this.props.formName]));
-        let f = ReactDOM.findDOMNode(this.refs[this.props.formName]);
-        f.reset();
-        return false;
-        const elements = f.querySelectorAll("input, select, textarea");
-        console.log("elements are ", elements);
-        for(let i = 0; i < elements.length; ++i ) {
-            const element = elements[i];
-            element.set('gregger');
-        }
-        let form = this.refs[this.props.formName];
-        const inputs = form.childs;
 
-        for(let i = 0; i < inputs.length; ++i ) {
-            console.log("input props...", inputs[i]);
-            // inputs[i].props['value'] = '';
-        }
+    reset() {
+        let reset_state = {};
+        let form = this.refs[this.props.formName];
+
+        Object.keys(this.state).forEach(function(key) {
+            reset_state[key] = '';
+        });
+
+        this.setState(reset_state);
+        form.resetValidations();
     }
-*/
+
     handleSubmit(e) {
         e.preventDefault();
         let that = this;
@@ -55,10 +43,10 @@ class AjaxValidatorForm extends React.Component {
         .then(function (response) {
             console.log('response data is', response.data);
             that.props.onsuccess(response.data);
-            that.setState({email: null, cris: null});
+            // that.setState({email: null, cris: null});
             // resetValidations built in function with <FormValidator>
             // TODO: isolate "state" of form inputs in order to not delete ALL state
-            form.resetValidations();
+            that.reset();
         })
         .catch(function (error) {
             console.log(error);
