@@ -33,3 +33,4 @@ vso.war
 /node_modules
 /public/packs
 /lib/oracle
+.bash_profile
