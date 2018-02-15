@@ -38,3 +38,11 @@ export default class Application extends React.Component {
 document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(<Application />, document.getElementById('app'));
 });
+
+
+window.axios = require('axios');
+
+window.axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+};

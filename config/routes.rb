@@ -10,4 +10,5 @@ Rails.application.routes.draw do
 
   get 'fetch_text/fetch_text', :as => :fetch_text
   get 'show_headers' => 'utilities#ajax_show_headers', :constraints => OnlyAjaxRequest.new
+  post 'submit_form' => 'utilities#ajax_form_submission'
 end
