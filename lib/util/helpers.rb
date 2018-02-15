@@ -111,3 +111,11 @@ class String
       self.gsub!('\\', java.io.File::separator)
   end
 end
+
+module JSON
+  class << self
+    def indifferent_parse(source, opts = {})
+      HashWithIndifferentAccess.new(JSON.parse(source, opts))
+    end
+  end
+end

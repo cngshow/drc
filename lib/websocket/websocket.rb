@@ -40,7 +40,7 @@ module WebSocketSupport
     end
 
     def broadcast(channel:, message:)
-      validate(channel: key)
+      validate(channel: channel)
       chat(key: channel, message: message, collection: WebSocketSupport.websockets_by_channel)
     end
 
