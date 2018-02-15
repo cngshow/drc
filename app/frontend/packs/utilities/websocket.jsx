@@ -17,7 +17,7 @@ class WebSocketHelper {
         this.websocket.onclose = this.onclose.bind(this);
         this.close = this.close.bind(this);
         this.setup = false;
-        this.socket_setup = {'broadcast_channel_setup': this.channel, uuid: gon.uuid, client_uid: guid()} //todo, bind this string to ruby code via irb somewhere.
+        this.socket_setup = {'broadcast_channel_setup': this.channel, uuid: gon.uuid, client_uuid: guid()} //todo, bind this string to ruby code via irb somewhere.
     }
 
     onopen() {
