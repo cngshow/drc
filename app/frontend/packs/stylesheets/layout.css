@@ -150,6 +150,7 @@ div.right {
     margin: 1em;
 }
 
+/* style to fix issue with autocomplete overlay and the material-ui textfield */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
