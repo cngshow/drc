@@ -77,7 +77,7 @@ class WebsocketChat extends React.Component {
 
     componentDidMount() {
         PubSub.subscribe('myChannel', this.onmessage);
-        this.websocket = new WebSocketHelper(gon.websocket_channel.ROOT_BEER);
+        this.websocket = new WebSocketHelper(gon.websocket_channel.ROOT_BEER, 'myChannel');
     }
 
     submitMessage(e) {

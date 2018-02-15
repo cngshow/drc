@@ -6,8 +6,9 @@ const guid=()=> {
 }
 
 class WebSocketHelper {
-    constructor(channel = null) {
+    constructor(channel = null, pubsub) {
         this.channel = channel;
+        this.pubsub = pubsub;
         this.websocket = new WebSocket(gon.websocket_endpoint_url);
         // this.websocket = new WebSocket('ws://localhost:8090/websocket/rails');
         this.chat = this.chat.bind(this);
@@ -35,7 +36,7 @@ class WebSocketHelper {
 
     onmessage(evt) {
         console.log("onmessage", evt);
-        PubSub.publish(this.channel, evt.data);
+        PubSub.publish(this.pubsub, evt.data);
     }
 
     onclose() {

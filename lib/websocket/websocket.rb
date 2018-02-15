@@ -119,12 +119,20 @@ module WebSocketSupport
       $log.always("on channel blocks #{@on_channel_blocks.inspect}")
     end
 
+    #useful in testing, to ensure only blocks under test are executed.
+    def clear
+      @on_channel_blocks = HashWithIndifferentAccess.new
+      first = @on_message_blocks.first
+      @on_message_blocks = [first]
+    end
+
     def update(jobservable, messageHolder)
       WEBSOCKET_LOCK.synchronized do
         msg = messageHolder.get_message
         websocket = messageHolder.getWebSocketSupport
-        intial_data = JSON.parse websocket.getInitialData rescue nil#will always be nil/null on the first message
+        intial_data = HashWithIndifferentAccess.new(JSON.parse websocket.getInitialData) rescue nil#will always be nil/null on the first message
         channel = intial_data[WebSocketSetup::BROADCAST_CHANNEL_SETUP] rescue nil
+        $log.always("Got message #{msg}, with #{intial_data}, against channel #{channel}")
         @on_message_blocks.each do |block|
           terminate_notifications = false
           begin
@@ -139,7 +147,7 @@ module WebSocketSupport
         end
         unless channel.nil?
           $log.always {"on channel blocks is #{@on_channel_blocks.inspect}, for channel #{channel}"}
-          @on_channel_blocks[channel].each do |block|
+          @on_channel_blocks[channel]&.each do |block|
             begin
               $log.always {"start block on channel #{channel}"}
               block.call(msg, messageHolder, websocket, channel)
@@ -152,15 +160,15 @@ module WebSocketSupport
       end
     end
 
-    def add_websocket(channel:, websocket:, uuid:, counter:)
+    def add_websocket(channel:, websocket:, server_uuid:, client_uuid:)
       $log.always("Adding to channel #{channel} websocket #{websocket}")
       WebSocketSupport.validate(channel: channel)
       $log.always("Channel #{channel} is valid")
       WEBSOCKET_LOCK.synchronized do
         WebSocketSupport.websockets_by_channel[channel] ||= []
         WebSocketSupport.websockets_by_channel[channel] << websocket unless WebSocketSupport.websockets_by_channel[channel].include? websocket
-        WebSocketSupport.websockets_by_client[[uuid, counter]] ||= []
-        WebSocketSupport.websockets_by_client[[uuid, counter]] << websocket unless WebSocketSupport.websockets_by_client[[uuid, counter]].include? websocket
+        WebSocketSupport.websockets_by_client[[server_uuid, client_uuid]] ||= []
+        WebSocketSupport.websockets_by_client[[server_uuid, client_uuid]] << websocket unless WebSocketSupport.websockets_by_client[[server_uuid, client_uuid]].include? websocket
       end
     end
 
@@ -187,7 +195,7 @@ module WebSocketSupport
           uuid = hash[WebSocketSupport::WebSocketSetup::SERVER_UUID]
           client_uuid = hash[WebSocketSupport::WebSocketSetup::CLIENT_UUID]
           if (channel && uuid && client_uuid)
-            WebSocketMessageObserver.instance.add_websocket(channel: channel, uuid: uuid, client_uuid: client_uuid, websocket: websocket)
+            WebSocketMessageObserver.instance.add_websocket(channel: channel, server_uuid: uuid, client_uuid: client_uuid, websocket: websocket)
             rval = TerminateNotifications
           end
         rescue => ex
