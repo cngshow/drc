@@ -5,15 +5,10 @@ import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import WebSocketHelper from '../../packs/utilities/websocket'
 import PubSub from 'pubsub-js'
-import MyForm from '../components/crap'
 import AjaxValidatorForm from '../components/ajax_validator_form'
 import { TextValidator } from 'react-material-ui-form-validator';
 
 import GH from '../components/helpers/gon_helper'
-import Select from 'material-ui/Select';
-import { FormControl, FormLabel, FormControlLabel, FormHelperText } from 'material-ui/Form';
-import Input, { InputLabel } from 'material-ui/Input';
-import Radio, { RadioGroup } from 'material-ui/Radio';
 
 import WebsocketTest from './websocket_test'
 
@@ -36,6 +31,7 @@ const styles = theme => ({
     },
 });
 
+/*
 const Message2 = (props) => {
     return (
         <li><p>{props.username}: {props.content}</p></li>
@@ -56,6 +52,8 @@ export class Message extends React.Component {
         )
     }
 }
+*/
+
 class WebsocketChat extends React.Component {
      constructor(props) {
         super(props);
@@ -126,7 +124,6 @@ class WebsocketChat extends React.Component {
                 <ul className="chats" ref="chats">
                     {
                         chats.map((chat, idx) => {
-                            // return <Message2 key={idx} username={chat.user} content={chat.content}/>;
                             return <li key={chat.id}><p>{chat.user}: {chat.content}</p></li>;
                         })
                     }
@@ -145,9 +142,12 @@ class WebsocketChat extends React.Component {
 
                     <Button raised="true" type="submit">Submit</Button>
                 </form>
-                <MyForm/>
 
-                <AjaxValidatorForm formName="gregger" action_path={GH.getRoute('submit_form_path')} onsuccess={this.onsuccess.bind(this)} onerror={this.onerror.bind(this)} focus="email">
+                <AjaxValidatorForm formName="gregger"
+                                   action_path={GH.getRoute('submit_form_path')}
+                                   onsuccess={this.onsuccess.bind(this)}
+                                   onerror={this.onerror.bind(this)}
+                                   focus="cris" >
                     <TextValidator
                         label="Email"
                         name="email"

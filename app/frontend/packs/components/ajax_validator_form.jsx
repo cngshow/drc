@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
 import { ValidatorForm } from 'react-material-ui-form-validator';
 import axios from 'axios'
 
@@ -14,37 +13,35 @@ class AjaxValidatorForm extends React.Component {
     }
 
     handleChange(event) {
-        let v = event.target.value;
-        this.setState({[event.target.name]: v});
+        this.setState({[event.target.name]: event.target.value});
     }
 
     reset() {
         let reset_state = {};
-        let form = this.refs[this.props.formName];
 
         Object.keys(this.state).forEach(function(key) {
             reset_state[key] = '';
         });
 
         this.setState(reset_state);
-        form.resetValidations();
+        this.initFocus();
     }
 
     handleSubmit(e) {
         e.preventDefault();
         let that = this;
-        let form = this.refs[this.props.formName];
         let data = this.toJSONString();
+        let addl_headers = this.props.addlHeaders() || {};
+
         axios({
             method: 'post',
             url: this.props.action_path,
-            data: data
+            data: data,
+            headers: addl_headers
         })
         .then(function (response) {
-            console.log('response data is', response.data);
+            console.table(response.data);
             that.props.onsuccess(response.data);
-            // that.setState({email: null, cris: null});
-            // resetValidations built in function with <FormValidator>
             // TODO: isolate "state" of form inputs in order to not delete ALL state
             that.reset();
         })
@@ -52,15 +49,11 @@ class AjaxValidatorForm extends React.Component {
             console.log(error);
             that.props.onerror(error);
         });
-
     }
 
     toJSONString() {
         const obj = {};
         let form = this.refs[this.props.formName];
-        // let form = this._inputForm;
-        // return obj;
-
         const inputs = form.childs;
 
         for(let i = 0; i < inputs.length; ++i ) {
@@ -70,24 +63,8 @@ class AjaxValidatorForm extends React.Component {
     }
 
     initFocus() {
-        // console.log("form name is " + this.props.formName);
-        // let form = this.refs[this.props.formName];
-        // console.log("form refs is ", form.childs);
-        // form.childs[0].focus();
-        return false;
-
-        let input = this.props.focus;
-        const elements = form.querySelectorAll("input, select, textarea");
-
-        for(let i = 0; i < elements.length; ++i ) {
-            const element = elements[i];
-            const id = element.name;
-
-            if( id === input) {
-                element.focus();
-                return true;
-            }
-        }
+        let g = document.getElementById(this.props.formName + '_' + this.props.focus);
+        if (g) { g.focus() }
     }
 
     componentDidMount() {
@@ -96,10 +73,8 @@ class AjaxValidatorForm extends React.Component {
 
     render() {
         let children = React.Children.map(this.props.children, child => {
-            let refName = child.props.name;
-            console.log("child ref name is " + refName);
             return React.cloneElement(child, {
-                ref: refName,
+                id: this.props.formName + '_' + child.props.name,
                 value: this.state[child.props.name] || ''
             });
         });

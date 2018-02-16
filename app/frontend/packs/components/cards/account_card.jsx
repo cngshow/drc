@@ -1,9 +1,10 @@
 import React from 'react';
-import WebsocketChat from '../../components/websocket_chat';
+import WebsocketTest from '../../components/websocket_test';
 
 class Account extends React.Component {
     componentDidMount() {
         console.log(this.props.id + " is now mounted!");
+        document.getElementById('rootbeer_post_msg').focus();
     }
 
     componentWillUnmount() {
@@ -17,7 +18,9 @@ class Account extends React.Component {
         return (
             <div style={style}>
                 this is the {this.props.id} card
-                <WebsocketChat />
+                <WebsocketTest id="rootbeer" ps_channel="rootbeer_test" ws_channel={gon.websocket_channel.ROOT_BEER}/>
+                <hr/>
+                <WebsocketTest id="coke" ps_channel="coke_test" ws_channel={gon.websocket_channel.COKE}/>
             </div>
         )
     }

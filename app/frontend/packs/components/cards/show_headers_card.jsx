@@ -27,7 +27,7 @@ class ShowHeaders extends React.Component {
     componentDidMount() {
         let loadHeaderData = this.loadHeaderData;
 
-        axios.get(GH.getRoute('show_headers_path'))
+        axios.get(gon.routes.show_headers_path)
             .then(function (response) {
                 console.log('header data is', response.data);
                 loadHeaderData(response.data);

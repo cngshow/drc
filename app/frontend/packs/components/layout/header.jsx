@@ -6,7 +6,7 @@ import GH from '../helpers/gon_helper'
 
 class VsoHeader extends React.Component {
     swapText(btn) {
-        axios.get(GH.getRoute('fetch_text_path'), {
+        axios.get(gon.routes.fetch_text_path, {
             params: {btn: btn}
         })
         .then(function (response) {

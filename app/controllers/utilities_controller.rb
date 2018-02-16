@@ -18,12 +18,16 @@ class UtilitiesController < ApplicationController
 
   def ajax_websocket_test
     msg = params['post_msg']
-    ws_setup = JSON.indifferent_parse(request.headers['HTTP_WS_SETUP'])
-    channel = ws_setup[WebSocketSetup::BROADCAST_CHANNEL_SETUP]
-    server_uuid  = ws_setup[WebSocketSetup::SERVER_UUID]
-    client_uuid  = ws_setup[WebSocketSetup::CLIENT_UUID]
-    WebSocketSupport.broadcast(channel: channel, message: "Post message: #{msg} at #{Time.now}")
-    WebsocketTestJob.set(wait_until: 5.seconds.from_now).perform_later(server_uuid, client_uuid)
+
+    if request.headers['HTTP_WS_SETUP']
+      ws_setup = JSON.indifferent_parse(request.headers['HTTP_WS_SETUP'])
+      channel = ws_setup[WebSocketSetup::BROADCAST_CHANNEL_SETUP]
+      server_uuid  = ws_setup[WebSocketSetup::SERVER_UUID]
+      client_uuid  = ws_setup[WebSocketSetup::CLIENT_UUID]
+      WebSocketSupport.broadcast(channel: channel, message: "Post message: #{msg} at #{Time.now}")
+      WebsocketTestJob.set(wait_until: 5.seconds.from_now).perform_later(server_uuid, client_uuid)
+    end
+
     render :json => params
   end
 end

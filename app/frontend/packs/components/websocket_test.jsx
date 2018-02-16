@@ -1,51 +1,56 @@
 import React from 'react';
 import WebSocketHelper from '../../packs/utilities/websocket'
 import PubSub from 'pubsub-js'
-import axios from 'axios'
-import GH from '../components/helpers/gon_helper'
+import AjaxValidatorForm from '../components/ajax_validator_form'
+import { TextValidator } from 'react-material-ui-form-validator';
+import Button from 'material-ui/Button';
 
 class WebsocketTest extends React.Component {
     constructor() {
         super();
-        this.state = {post_msg: '', incoming_msg: ''}
-        this.onmessage = this.onmessage.bind(this);
+        this.state = {incoming_msg: ''};
     }
 
-    postMsg() {
-        var msg = this.state.post_msg;
-        console.log("msg is " + msg);
-        let that = this;
-        var setup = this.websocket.socket_setup
-
-        axios({
-            method: 'post',
-            url: gon.routes.websocket_test_path,
-            data: {post_msg: this.state.post_msg},
-            headers: {
-                ws_setup: JSON.stringify(setup)
-            }
-        })
-            .then(function (response) {
-                console.log('response data is', response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-
-
-        this.setState({post_msg: ''});
-
+    onsuccess(data) {
+        console.table(data);
     }
 
-    handleChange(e) {
-        this.setState({post_msg: e.target.value});
+    onerror(response) {
+        console.log("onerror callback with response", JSON.stringify(response));
+    }
+
+    addlHeaders() {
+        let setup = this.websocket.socket_setup;
+        return { ws_setup: JSON.stringify(setup)};
+    }
+
+    onmessage = (channel, msg) => {
+        console.log("received data on " + channel, msg);
+        this.setState({incoming_msg: msg});
+    };
+
+    componentDidMount() {
+        PubSub.subscribe(this.props.ps_channel, this.onmessage);
+        this.websocket = new WebSocketHelper(this.props.ws_channel, this.props.ps_channel);
     }
 
     render() {
         return (
             <div className="">
-                <input type="text" name="post_msg" value={this.state.post_msg} onChange={this.handleChange.bind(this)}/>
-                <button onClick={this.postMsg.bind(this)}>Submit Msg</button>
+                <AjaxValidatorForm formName={this.props.id}
+                                   action_path={gon.routes.websocket_test_url}
+                                   onsuccess={this.onsuccess.bind(this)}
+                                   onerror={this.onerror.bind(this)}
+                                   addlHeaders={this.addlHeaders.bind(this)}
+                                   focus="post_msg" >
+                    <TextValidator
+                        label="Msg"
+                        name="post_msg"
+                        validators={['required']}
+                        errorMessages={['this field is required']}
+                    />
+                    <Button raised="true" type="submit">Submit</Button>
+                </AjaxValidatorForm>
                 <hr/>
                 <div>
                     <label htmlFor="incoming_msg">Last Incoming MSG</label>
@@ -53,28 +58,6 @@ class WebsocketTest extends React.Component {
                 </div>
             </div>
         )
-    }
-
-    onmessage(channel, msg) {
-        console.log("received data on " + channel, msg);
-        this.setState({incoming_msg: msg});
-    }
-
-    componentWillMount() {
-    }
-
-    componentDidMount() {
-        PubSub.subscribe(this.props.ps_channel, this.onmessage);
-        this.websocket = new WebSocketHelper(this.props.ws_channel, this.props.ps_channel);
-    }
-
-    componentWillUpdate(nextProps, nextState) {
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-    }
-
-    componentWillUnmount() {
     }
 }
 
