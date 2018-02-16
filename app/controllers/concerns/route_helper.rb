@@ -15,7 +15,10 @@ module RouteHelper
     if @@routes_hash.empty?
       routes.each do |route|
         begin
-          @@routes_hash[route] = self.send(route)
+         #@@routes_hash[route] = self.send(route) #put me back
+          u = URI self.send(route)#delete me
+          u.port = 8090 if Rails.env.development?#delete me
+          @@routes_hash[route] = u #delete me
         rescue ActionController::UrlGenerationError => ex
           if (ex.message =~ /missing required keys: \[(.*?)\]/)
             keys = $1
