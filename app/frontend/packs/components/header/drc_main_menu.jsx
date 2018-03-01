@@ -18,7 +18,7 @@ const styles = {
     },
 };
 
-class VsoMainMenu extends React.Component {
+class DrcMainMenu extends React.Component {
     state = {
         open: false,
     };
@@ -76,8 +76,8 @@ class VsoMainMenu extends React.Component {
     }
 }
 
-VsoMainMenu.propTypes = {
+DrcMainMenu.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(VsoMainMenu);
+export default withStyles(styles)(DrcMainMenu);

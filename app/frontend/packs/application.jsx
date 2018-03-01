@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SimpleDialogDemo from './components/dialog/dialog'
-import VsoHeader from './components/layout/header'
-import VsoFooter from './components/layout/footer'
-import VsoMain from './components/layout/main'
-import VsoAppBar from './vso_app_bar'
+import DrcHeader from './components/layout/header'
+import DrcFooter from './components/layout/footer'
+import DrcMain from './components/layout/main'
+import DrcAppBar from './drc_app_bar'
 import AppHeaderBar from './components/header/app_header_bar'
 
 import PubSub from 'pubsub-js'
@@ -27,9 +27,9 @@ export default class Application extends React.Component {
             <div>
                 {/*<AppHeaderBar/>*/}
                 {/*<hr/>*/}
-                <VsoHeader className="kheader"/>
-                <VsoMain className="kmain"/>
-                <VsoFooter className="kfooter"/>
+                <DrcHeader className="kheader"/>
+                <DrcMain className="kmain"/>
+                <DrcFooter className="kfooter"/>
             </div>
         )
     }

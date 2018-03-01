@@ -30,7 +30,7 @@ function handleClose(action) {
 
 }
 
-class VsoAppBar extends React.Component {
+class DrcAppBar extends React.Component {
     handleClose = (action) => {
         console.log("we are closing...." + action);
     };
@@ -46,7 +46,7 @@ class VsoAppBar extends React.Component {
                         </IconButton>
                         <img src={GH.getImagePath('VA-header.png')} alt="VA Header Image"/>
                         <Typography type="title" color="inherit" className={classes.flex}>
-                            VSO Title
+                            DRC Title
                         </Typography>
                         <Button color="inherit">Login</Button>
                     </Toolbar>
@@ -56,9 +56,9 @@ class VsoAppBar extends React.Component {
     }
 }
 /*
-VsoAppBar.propTypes = {
+DrcAppBar.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 */
 
-export default withStyles(styles)(VsoAppBar);
+export default withStyles(styles)(DrcAppBar);

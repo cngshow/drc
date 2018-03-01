@@ -1,6 +1,6 @@
 import React from 'react';
 
-class VsoFooter extends React.Component {
+class DrcFooter extends React.Component {
     render () {
         return (
             <div className="kfooter">
@@ -10,4 +10,4 @@ class VsoFooter extends React.Component {
     }
 }
 
-export default VsoFooter;
+export default DrcFooter;

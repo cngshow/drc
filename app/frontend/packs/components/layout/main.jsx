@@ -4,7 +4,7 @@ import Account from '../cards/account_card'
 import Logout from '../cards/logout_card'
 import ShowHeaders from '../cards/show_headers_card'
 
-class VsoMain extends React.Component {
+class DrcMain extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -47,4 +47,4 @@ class VsoMain extends React.Component {
     }
 }
 
-export default VsoMain;
+export default DrcMain;

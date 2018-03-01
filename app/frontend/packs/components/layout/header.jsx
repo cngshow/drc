@@ -1,10 +1,10 @@
 import React from 'react';
 import Button from 'material-ui/Button';
-import VsoMainMenu from '../header/vso_main_menu'
+import DrcMainMenu from '../header/drc_main_menu'
 import axios from 'axios'
 import GH from '../helpers/gon_helper'
 
-class VsoHeader extends React.Component {
+class DrcHeader extends React.Component {
     swapText(btn) {
         axios.get(gon.routes.fetch_text_path, {
             params: {btn: btn}
@@ -25,7 +25,7 @@ class VsoHeader extends React.Component {
                     <img src={GH.getImagePath('VA-header.png')} alt="VA Header Image"/>
                 </div>
                 <div className="inline_block">
-                    <VsoMainMenu />
+                    <DrcMainMenu />
                 </div>
                 <div className="inline_block">
                     <Button raised="true" onClick={this.swapText.bind(this, 'hello')}>hello</Button>
@@ -36,4 +36,4 @@ class VsoHeader extends React.Component {
     }
 }
 
-export default VsoHeader;
+export default DrcHeader;
