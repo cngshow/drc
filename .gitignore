@@ -26,7 +26,7 @@
 /.idea
 context.txt
 version.txt
-vso.war
+drc.war
 /public/assets/*
 /lib/oracle/public/packs
 /public/packs-test

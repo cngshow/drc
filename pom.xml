@@ -4,15 +4,15 @@
 	<!-- in order to get your jars run this -->
 	<!-- mvn initialize -->
 
-	<groupId>gov.vha.vso.gui.rails</groupId>
-	<artifactId>rails_vso</artifactId>
+	<groupId>gov.vha.drc.gui.rails</groupId>
+	<artifactId>rails_drc</artifactId>
 	<version>1.00-SNAPSHOT</version><!--THIS IS THE ONLY PLACE SNAPSHOT CAN EXIST BEFORE MAKING A RELEASE!!-->
 	<packaging>pom</packaging>
 
-	<name>Rails VSO</name>
+	<name>Rails DRC</name>
 
 	<description>
-		This project is the Ruby on Rails web GUI for VSO
+		This project is the Ruby on Rails web GUI for DRC
 	</description>
 
 	<properties>
@@ -21,7 +21,7 @@
 	</properties>
 
 	<scm>
-		<url>https://github.com/vso/rails_vso.git</url>
+		<url>https://github.com/drc/rails_drc.git</url>
 	</scm>
 
 	<repositories>
@@ -226,7 +226,7 @@
 						<configuration>
 							<jrubyVerbose>true</jrubyVerbose>
 							<jrubyJvmArgs>-Djava.awt.headless=true</jrubyJvmArgs>
-							<execArgs>PROJECT_VERSION=${project.version} RAILS_RELATIVE_URL_ROOT=/vso PROJECT_VERSION=${project.version}</execArgs>
+							<execArgs>PROJECT_VERSION=${project.version} RAILS_RELATIVE_URL_ROOT=/drc PROJECT_VERSION=${project.version}</execArgs>
 							<command>rake</command>
 							<args>devops:build_war</args>
 						</configuration>
@@ -248,7 +248,7 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<file>${project.build.directory}/vso.war</file>
+									<file>${project.build.directory}/drc.war</file>
 									<type>war</type>
 								</artifact>
 							</artifacts>

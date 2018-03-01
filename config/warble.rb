@@ -80,7 +80,7 @@ Warbler::Config.new do |config|
 
   # Name of the archive (without the extension). Defaults to the basename
   # of the project directory
-  config.jar_name = "#{VSOUtilities::MAVEN_TARGET_DIRECTORY}/#{ENV['RAILS_RELATIVE_URL_ROOT']}"
+  config.jar_name = "#{DRCUtilities::MAVEN_TARGET_DIRECTORY}/#{ENV['RAILS_RELATIVE_URL_ROOT']}"
 
   # File extension for the archive. Defaults to either 'rm etjar' or 'war'.
   # config.jar_extension = "jar"

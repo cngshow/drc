@@ -2,7 +2,7 @@ require 'warbler'
 require './lib/util/helpers'
 require 'fileutils'
 Rake::TaskManager.record_task_metadata = true
-include VSOUtilities
+include DRCUtilities
 
 WINDOWS ||= (java.lang.System.getProperties['os.name'] =~ /win/i)
 
@@ -32,7 +32,7 @@ namespace :devops do
 
   desc 'build maven\'s target folder if needed'
   task :maven_target do |task|
-    Dir.mkdir(VSOUtilities::MAVEN_TARGET_DIRECTORY) unless File.exists?(VSOUtilities::MAVEN_TARGET_DIRECTORY)
+    Dir.mkdir(DRCUtilities::MAVEN_TARGET_DIRECTORY) unless File.exists?(DRCUtilities::MAVEN_TARGET_DIRECTORY)
   end
 
   desc 'build the context file'
@@ -77,7 +77,7 @@ namespace :devops do
   end
 
   slash = java.io.File.separator #or FILE::ALT_SEPARATOR
-  src_war = "#{VSOUtilities::MAVEN_TARGET_DIRECTORY}#{slash}#{Rails.application.class.parent_name.to_s.downcase}.war"
+  src_war = "#{DRCUtilities::MAVEN_TARGET_DIRECTORY}#{slash}#{Rails.application.class.parent_name.to_s.downcase}.war"
   tomcat_war_dst =  "#{ENV['TOMCAT_DEPLOY_DIRECTORY']}"
   app_name = Rails.application.class.parent_name.to_s.downcase
   tomcat_war ="#{tomcat_war_dst}#{slash}#{app_name}.war"
@@ -144,12 +144,12 @@ namespace :devops do
   task :websocket do |task|
     p task.comment
     tomcat_copy_dir = "#{tomcat_base_dir}lib"
-    # Grabs all previous websocket_VSO_snapshots created by Maven -- needs to mirror POM.xml <version>
-    previous_rails_snapshots = Dir.glob(File.join("lib", "websocket", "websocket_vso*.jar"))
-    previous_tomcat_snapshots = Dir.glob("#{tomcat_copy_dir}/websocket_vso*.jar")
+    # Grabs all previous websocket_rails_snapshots created by Maven -- needs to mirror POM.xml <version>
+    previous_rails_snapshots = Dir.glob(File.join("lib", "websocket", "websocket_rails*.jar"))
+    previous_tomcat_snapshots = Dir.glob("#{tomcat_copy_dir}/websocket_rails*.jar")
     # Combine all of the previous snapshots
     previous_snapshots = previous_rails_snapshots.concat previous_tomcat_snapshots
-    # Delete previous websocket_vso snapshots in order to prevent duplicates
+    # Delete previous websocket_rails snapshots in order to prevent duplicates
     previous_snapshots.each { |snap| File.delete(snap)}
     pull = "cd #{ENV['WEBSOCKET_POM_LOC']} && git pull"
     build = "cd #{ENV['WEBSOCKET_POM_LOC']} && mvn clean package"

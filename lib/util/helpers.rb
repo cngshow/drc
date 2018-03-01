@@ -17,7 +17,7 @@ Copyright Notice
  limitations under the License.
 =end
 require 'uri'
-module VSOUtilities
+module DRCUtilities
   TMP_FILE_PREFIX = './tmp/'
   YML_EXT = '.yml'
   MAVEN_TARGET_DIRECTORY = './target'
