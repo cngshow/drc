@@ -9,7 +9,7 @@ require './lib/props/prop_loader' #Grant visibility to $PROPS at this level.
 
 Bundler.require(*Rails.groups)
 
-module Vso
+module Drc
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
