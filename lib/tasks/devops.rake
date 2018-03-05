@@ -23,7 +23,6 @@ namespace :devops do
 
 
   default_name = to_snake_case(Rails.application.class.parent)
-  default_war = "#{default_name}.war"
   context = env('RAILS_RELATIVE_URL_ROOT', "/#{default_name}")
   version = env('PROJECT_VERSION', "unversioned")
   ENV['RAILS_RELATIVE_URL_ROOT'] = env('RAILS_RELATIVE_URL_ROOT', "/#{default_name}")
