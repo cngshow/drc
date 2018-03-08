@@ -60,6 +60,7 @@ namespace :devops do
   desc 'Build war file'
   task :build_war do |task|
     p task.comment
+    p "delete the old wars here ****************"
     Rake::Task['devops:maven_target'].invoke
     Rake::Task['devops:compile_assets'].invoke
     Rake::Task['devops:generate_context_file'].invoke
@@ -70,6 +71,19 @@ namespace :devops do
     Warbler::Task.new
     Rake::Task['war'].invoke
     p "#{version} is version and #{src_war}"
+    p "#{src_war} <--- should be the snapshot war file"
+    p "#{tomcat_war} <----- should be the tomcat dir that we are copying the war file"
+    p "#{Dir.glob(File.join("target", "drc*.war"))}"
+    #if war file has the 1.00 snapshot then copy to tomcat here otherwise the copy will occur at move_war
+    new_war = Dir.glob(File.join("target", "drc*.war"))
+    new_war.each do |war|
+	    p war
+      File.rename(war, "#{tomcat_war_dst}#{slash}drc_copy_copy12.war")
+      p Dir.glob(File.join("target", "drc*.war"))
+      #FileUtils.copy(formatted_war_name,tomcat_war_dst)
+    end
+
+    #File.rename(Dir.glob(File.join("target", "drc*.war")), tomcat_war + drc_copy_copy.war)
   end
 
   desc 'Compile assets'
