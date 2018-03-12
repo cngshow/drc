@@ -1,5 +1,6 @@
 require 'logging'
 require 'fileutils'
+require 'socket'
 
 #if nil we are in trinidad
 CATALINA_HOME = java.lang.System.properties['catalina.home']
@@ -50,11 +51,12 @@ Logging.appenders.stdout(
     )
 )
 
+color_scheme = (Rails.env.production? && !$PROPS['LOG.color_hosts'].split(',').include?(Socket.gethostname)) ? :default : 'pretty'
 rf = Logging.appenders.rolling_file(
     'file',
     layout: Logging.layouts.pattern(
         pattern: pattern,
-        color_scheme: 'pretty',
+        color_scheme: color_scheme,
     #    backtrace: true
     ),
     roll_by: $PROPS['LOG.roll_by'],
@@ -68,7 +70,7 @@ error_appender = Logging.appenders.rolling_file(
     'file',
     layout: Logging.layouts.pattern(
         pattern: pattern,
-        color_scheme: 'pretty',
+        color_scheme: color_scheme,
     ),
     roll_by: $PROPS['LOG.roll_by'],
     keep: $PROPS['LOG.keep'].to_i,
@@ -109,7 +111,7 @@ begin
         'file',
         layout: Logging.layouts.pattern(
             pattern: pattern,
-            color_scheme: 'pretty',
+            color_scheme: color_scheme,
         #    backtrace: true
         ),
         roll_by: $PROPS['LOG.roll_by'],
@@ -133,7 +135,7 @@ begin
         'file',
         layout: Logging.layouts.pattern(
             pattern: pattern,
-            color_scheme: 'pretty',
+            color_scheme: color_scheme,
         #    backtrace: true
         ),
         roll_by: $PROPS['LOG.roll_by'],
@@ -189,7 +191,7 @@ module Kernel
   end
   module_function :LEX
 end
-
+$log.always "Using color scheme #{color_scheme}, Rails mode is #{Rails.env}"
 =begin
 load('lib/logging/logging.rb')
 $log.debug{LEX("I had a boo boo 2", ex)}
