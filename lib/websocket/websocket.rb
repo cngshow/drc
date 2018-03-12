@@ -1,18 +1,8 @@
 require './lib/websocket/channels'
 
-if ENV['LOAD_WEBSOCKET_JARS']
-  urls = []
-  jars = Dir.glob("#{Rails.root}/lib/websocket/*.jar")
-  jars.each do |j|
-    urls << java.io.File.new(j).toURI.toURL
-  end
-  urls << java.io.File.new("#{Rails.root}/lib/jars/javax.websocket-api.jar").toURI.toURL
-  urls << java.io.File.new("#{Rails.root}/lib/jars/juli.jar").toURI.toURL
-
-  urls.each do |url|
-    java.lang.ClassLoader.getSystemClassLoader.addURL(url) #put it high up on the classloader chain so Tomcat finds it and instantiates with the first 'ws(s)://...' request.
-  end
-end
+jars = Dir.glob("#{Rails.root}/lib/websocket/*.jar")
+require jars.first
+#todo delete lines three and four when this jar becomes any old boring dependency managed by maven
 
 java_import 'gov.va.rails.websocket.WebSocketSupport' do |p, c|
   'JWebSocketSupport'
