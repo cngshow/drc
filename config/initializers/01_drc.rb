@@ -1,5 +1,8 @@
 require './lib/util/helpers'
+require './lib/jars'
+JarSupport.load
 require './lib/websocket/websocket'
+
 
 WEBSOCKET_ENDPOINT = JWebSocketSupport::END_POINT
 
