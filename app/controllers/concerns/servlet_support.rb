@@ -2,6 +2,10 @@ module ServletSupport
 
   SERVLET_REQUEST = 'java.servlet_request'
 
+  class << self
+    attr_accessor :context#populated after the very firs request/response cycle
+  end
+
   def servlet_response
     request.headers[SERVLET_REQUEST]
   end
@@ -18,6 +22,10 @@ module ServletSupport
     port = servlet_response.getLocalPort
     $log.debug("True port is #{port}")
     port
+  end
+
+  def context
+    ServletSupport.context ||= servlet_response.getServletContext.getContextPath
   end
 
   #returns the scheme beneath the proxy

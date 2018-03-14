@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     gon.routes = setup_routes
     gon.packs = packed_assets
     gon.websocket_endpoint_path = WEBSOCKET_ENDPOINT
-    gon.websocket_endpoint_url = get_websocket_url
+    gon.websocket_endpoint_url = get_websocket_url(context: context)
     @@channels ||= Hash[WebSocketSupport::Channels.constants.zip( WebSocketSupport::Channels.constants.map {|c| WebSocketSupport::Channels.const_get(c)})]
     gon.websocket_channel = @@channels
     gon.uuid = SecureRandom.uuid

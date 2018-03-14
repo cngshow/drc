@@ -26,6 +26,8 @@ Warbler::Config.new do |config|
   # JRuby and JRuby-Rack are pre-loaded in this list.  Be sure to include your
   # own versions if you directly set the value
   # config.java_libs += FileList["lib/java/*.jar"]
+  config.java_libs += FileList["lib/jars/*.jar"]
+  config.java_libs += FileList["lib/websocket/*.jar"]
 
   # Loose Java classes and miscellaneous files to be included.
   # config.java_classes = FileList["target/classes/**.*"]
