@@ -180,9 +180,6 @@ namespace :devops do
       puts "Copying #{jar} to #{copy_rails}"
       FileUtils.copy(jar,copy_rails)
       puts 'Done!'
-      puts "Copying #{jar} to #{tomcat_copy_dir}"
-      FileUtils.copy(jar,tomcat_copy_dir)
-      puts 'Done!'
     end
   end
 
