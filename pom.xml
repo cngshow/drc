@@ -10,7 +10,9 @@
 	<packaging>pom</packaging>
 
 	<name>Rails DRC</name>
-
+	<modules>
+	     <module>../drc-java</module>
+	</modules>
 	<description>
 		This project is the Ruby on Rails web GUI for DRC
 	</description>
@@ -73,6 +75,11 @@
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>juli</artifactId>
 			<version>6.0.53</version>
+		</dependency>
+		<dependency>
+			<groupId>gov.va.vba.drc</groupId>
+			<artifactId>drc-java</artifactId>
+			<version>1.00-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
