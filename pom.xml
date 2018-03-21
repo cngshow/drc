@@ -46,7 +46,7 @@
 		<dependency>
 			<groupId>org.jruby</groupId>
 			<artifactId>jruby-complete</artifactId>
-			<version>9.1.15.0</version>
+			<version>9.1.16.0</version>
 		</dependency>
 		<dependency>
 			<groupId>rubygems</groupId>
@@ -75,11 +75,6 @@
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>juli</artifactId>
 			<version>6.0.53</version>
-		</dependency>
-		<dependency>
-			<groupId>gov.va.vba.drc</groupId>
-			<artifactId>drc-java</artifactId>
-			<version>1.00-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
@@ -235,7 +230,8 @@
 							<jrubyJvmArgs>-Djava.awt.headless=true</jrubyJvmArgs>
 							<execArgs>PROJECT_VERSION=${project.version} RAILS_RELATIVE_URL_ROOT=/drc PROJECT_VERSION=${project.version}</execArgs>
 							<command>rake</command>
-							<args>devops:build_war</args>
+							<args>devops:build_war ${env.GEM_HOME}</args>
+							<!--${env.GEM_HOME} //Used only during a build on windows. This must be the last argument.-->
 						</configuration>
 					</execution>
 				</executions>
