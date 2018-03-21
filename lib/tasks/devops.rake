@@ -5,6 +5,7 @@ Rake::TaskManager.record_task_metadata = true
 include DRCUtilities
 
 WINDOWS ||= (java.lang.System.getProperties['os.name'] =~ /win/i)
+$UNVERSIONED = 'unversioned'
 
 namespace :devops do
   def env(env_var, default)
@@ -25,7 +26,7 @@ namespace :devops do
   default_name = to_snake_case(Rails.application.class.parent)
   default_war = "#{default_name}.war"
   context = env('RAILS_RELATIVE_URL_ROOT', "/#{default_name}")
-  version = env('PROJECT_VERSION', "unversioned")
+  $maven_version = env('PROJECT_VERSION', $UNVERSIONED)
   ENV['RAILS_RELATIVE_URL_ROOT'] = env('RAILS_RELATIVE_URL_ROOT', "/#{default_name}")
   ENV['RAILS_ENV'] = version_to_rails_mode(ENV['PROJECT_VERSION'])
   ENV['NODE_ENV'] = ENV['RAILS_ENV']
@@ -36,7 +37,7 @@ namespace :devops do
   app_name = Rails.application.class.parent_name.to_s.downcase
   tomcat_war ="#{tomcat_war_dst}#{slash}#{app_name}.war"
   tomcat_base_dir = "#{tomcat_war_dst}#{slash}..#{slash}"
-  $war_name = version.eql?('unversioned') ? default_name  : "#{default_name}-#{version}"
+  $war_name = $maven_version.eql?($UNVERSIONED) ? default_name  : "#{default_name}-#{$maven_version}"
 
   desc 'build maven\'s target folder if needed'
   task :maven_target do |task|
@@ -53,8 +54,8 @@ namespace :devops do
   desc 'build the version file'
   task :generate_version_file do |task|
     p task.comment
-    p "version is #{version}"
-    File.open("version.txt", 'w') {|f| f.write(version)}
+    p "version is #{$maven_version}"
+    File.open("version.txt", 'w') {|f| f.write($maven_version)}
   end
 
   desc 'Build war file'
@@ -74,7 +75,7 @@ namespace :devops do
     Warbler::Task.new
     Rake::Task['war'].invoke
     #if war file has the 1.00 snapshot then copy to tomcat here otherwise the copy will occur at move_war
-    if version != "unversioned"
+    if $maven_version != $UNVERSIONED
       new_war = Dir.glob(File.join("target", "drc*.war"))
       new_war.each do |war|
         FileUtils.copy(war,src_war)
@@ -182,13 +183,19 @@ namespace :devops do
       puts 'Done!'
     end
   end
-
 end
 
 if WINDOWS
   class Webpacker::Compiler
     def run_webpack
-      sterr, stdout, status = Open3.capture3(webpack_env, "bundle.bat exec webpack")
+      gh =  ENV['GEM_HOME']
+      unless $maven_version.eql? $UNVERSIONED #unversioned means running outside of maven, rake task was called directly
+        ENV['GEM_HOME'] = ARGV.last #likely '..\gem_home', not ideal, force us to use developer's gem home to run webpacker instead of maven's
+        puts "Using gem home as #{ARGV.last} for the webpack."
+      end
+      cmd = "#{ENV['JRUBY_HOME']}/bin/jruby.exe #{ENV['GEM_HOME']}/bin/bundle exec webpack".os_path!
+      stdout, sterr, status = Open3.capture3(webpack_env, cmd)
+      ENV['GEM_HOME'] = gh
       if status.success?
         logger.info "Compiled all packs in #{config.public_output_path}"
       else
