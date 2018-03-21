@@ -1,0 +1,670 @@
+[INFO] Scanning for projects...
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for gov.vha.drc.gui.java:drc-java:jar:1.00-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.apache.maven.plugins:maven-compiler-plugin is missing. @ line 25, column 12
+[WARNING] 
+[WARNING] Some problems were encountered while building the effective model for gov.vha.drc.gui.rails:rails_drc:pom:1.00-SNAPSHOT
+[WARNING] 'build.plugins.plugin.version' for org.codehaus.mojo:build-helper-maven-plugin is missing. @ line 240, column 12
+[WARNING] 
+[WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
+[WARNING] 
+[WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
+[WARNING] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] drc-java
+[INFO] Rails DRC
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building drc-java 1.00-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ drc-java ---
+[INFO] Deleting /Users/evanswang/work/drc_root/drc-java/target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ drc-java ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /Users/evanswang/work/drc_root/drc-java/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ drc-java ---
+[INFO] Changes detected - recompiling the module!
+[WARNING] File encoding has not been set, using platform encoding UTF-8, i.e. build is platform dependent!
+[INFO] Compiling 2 source files to /Users/evanswang/work/drc_root/drc-java/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ drc-java ---
+[WARNING] Using platform encoding (UTF-8 actually) to copy filtered resources, i.e. build is platform dependent!
+[INFO] skip non existing resourceDirectory /Users/evanswang/work/drc_root/drc-java/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ drc-java ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ drc-java ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ drc-java ---
+[INFO] Building jar: /Users/evanswang/work/drc_root/drc-java/target/drc-java-1.00-SNAPSHOT.jar
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Rails DRC 1.00-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.0.0:clean (default-clean) @ rails_drc ---
+[INFO] Deleting /Users/evanswang/work/drc_root/drc/target
+[INFO] Deleting /Users/evanswang/work/drc_root/drc/lib/jars (includes = [**/*], excludes = [])
+[INFO] 
+[INFO] --- maven-dependency-plugin:2.8:copy-dependencies (place-jars) @ rails_drc ---
+[INFO] Copying juli-6.0.53.jar to /Users/evanswang/work/drc_root/drc/lib/jars/juli.jar
+[INFO] Copying javax.websocket-api-1.1.jar to /Users/evanswang/work/drc_root/drc/lib/jars/javax.websocket-api.jar
+[INFO] 
+[INFO] --- jruby9-exec-maven-plugin:0.3.1:exec (bundle install) @ rails_drc ---
+[INFO] jruby version   : 9.1.15.0
+[INFO] script uses jruby jar:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar
+[INFO] add to ruby loadpath: /Users/evanswang/work/drc_root/drc/lib
+[INFO] installing gems for compile scope . . .
+[INFO] java classpath  : 
+[INFO] environment     :
+[INFO] 		JARS_SKIP => true
+[INFO] 		GEM_PATH => /Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] 		GEM_HOME => /Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] 		JBUNDLE_SKIP => true
+[INFO] Adding reference: ant.PropertyHelper
+[INFO] Project base dir set to: /Users/evanswang/work/drc_root/drc
+[INFO] Executing '/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/bin/java' with arguments:
+'-cp'
+'/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'-Djava.awt.headless=true'
+'-Xbootclasspath/a:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'org.jruby.Main'
+'-I'
+'/Users/evanswang/work/drc_root/drc/lib'
+'-e'
+'load('jar:file:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar!/META-INF/jruby.home/bin/gem')'
+'--'
+'install'
+'--ignore-dependencies'
+'--no-rdoc'
+'--no-ri'
+'--no-user-install'
+'--no-verbose'
+'/Users/evanswang/.m2/repository/rubygems/rake/12.3.0/rake-12.3.0.gem'
+'/Users/evanswang/.m2/repository/rubygems/bundler/1.16.1/bundler-1.16.1.gem'
+'--bindir'
+'/Users/evanswang/work/drc_root/drc/target/rubygems/bin'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[INFO] Setting environment variable: JARS_SKIP=true
+[INFO] Setting environment variable: GEM_PATH=/Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] Setting environment variable: GEM_HOME=/Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] Setting environment variable: JBUNDLE_SKIP=true
+[INFO] Execute:Java13CommandLauncher: Executing '/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/bin/java' with arguments:
+'-cp'
+'/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'-Djava.awt.headless=true'
+'-Xbootclasspath/a:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'org.jruby.Main'
+'-I'
+'/Users/evanswang/work/drc_root/drc/lib'
+'-e'
+'load('jar:file:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar!/META-INF/jruby.home/bin/gem')'
+'--'
+'install'
+'--ignore-dependencies'
+'--no-rdoc'
+'--no-ri'
+'--no-user-install'
+'--no-verbose'
+'/Users/evanswang/.m2/repository/rubygems/rake/12.3.0/rake-12.3.0.gem'
+'/Users/evanswang/.m2/repository/rubygems/bundler/1.16.1/bundler-1.16.1.gem'
+'--bindir'
+'/Users/evanswang/work/drc_root/drc/target/rubygems/bin'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[INFO] Successfully installed rake-12.3.0
+[INFO] Successfully installed bundler-1.16.1
+[INFO] 2 gems installed
+[INFO] java classpath  : /Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar
+[INFO] environment     :
+[INFO] 		JARS_SKIP => true
+[INFO] 		GEM_PATH => /Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] 		GEM_HOME => /Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] 		JBUNDLE_SKIP => true
+[INFO] Executing '/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/bin/java' with arguments:
+'-cp'
+'/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'-Djava.awt.headless=true'
+'-Xbootclasspath/a:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'org.jruby.Main'
+'-I'
+'/Users/evanswang/work/drc_root/drc/lib'
+'-e'
+'require 'jruby/commands'; JRuby::Commands.generate_dir_info '/Users/evanswang/work/drc_root/drc/target/rubygems' if JRuby::Commands.respond_to? :generate_dir_info'
+'--'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[INFO] Setting environment variable: JARS_SKIP=true
+[INFO] Setting environment variable: GEM_PATH=/Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] Setting environment variable: GEM_HOME=/Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] Setting environment variable: JBUNDLE_SKIP=true
+[INFO] Execute:Java13CommandLauncher: Executing '/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/bin/java' with arguments:
+'-cp'
+'/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'-Djava.awt.headless=true'
+'-Xbootclasspath/a:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'org.jruby.Main'
+'-I'
+'/Users/evanswang/work/drc_root/drc/lib'
+'-e'
+'require 'jruby/commands'; JRuby::Commands.generate_dir_info '/Users/evanswang/work/drc_root/drc/target/rubygems' if JRuby::Commands.respond_to? :generate_dir_info'
+'--'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[INFO] installing gems for runtime scope . . .
+[INFO] installing gems for provided scope . . .
+[INFO] installing gems for test scope . . .
+[INFO] installing gems for plugin org.torquebox.mojo:jruby9-exec-maven-plugin . . .
+[INFO] add gems to test-classpath from: /Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] add resource: Resource {targetPath: null, filtering: false, FileSet {directory: /Users/evanswang/work/drc_root/drc/target/rubygems, PatternSet [includes: {gems/**, specifications/**}, excludes: {}]}}
+[INFO] java classpath  : /Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar
+[INFO] environment     :
+[INFO] 		JARS_SKIP => true
+[INFO] 		GEM_PATH => /Users/evanswang/work/drc_root/drc/target/rubygems:/Users/evanswang/work/drc_root/drc/target/rubygems-provided:/Users/evanswang/work/drc_root/drc/target/rubygems-test:/Users/evanswang/work/drc_root/drc/target/rubygems-jruby9-exec-maven-plugin
+[INFO] 		JARS_HOME => /Users/evanswang/.m2/repository
+[INFO] 		GEM_HOME => /Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] 		JARS_LOCK => /Users/evanswang/work/drc_root/drc/target/Jars_jruby9-exec.lock
+[INFO] 		JBUNDLE_SKIP => true
+[INFO] Executing '/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/bin/java' with arguments:
+'-cp'
+'/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'-Djava.awt.headless=true'
+'-Xbootclasspath/a:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'org.jruby.Main'
+'-I'
+'/Users/evanswang/work/drc_root/drc/lib'
+'-r'
+'jars/setup'
+'/Users/evanswang/work/drc_root/drc/target/rubygems/bin/bundle'
+'install'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[INFO] Setting environment variable: JARS_SKIP=true
+[INFO] Setting environment variable: GEM_PATH=/Users/evanswang/work/drc_root/drc/target/rubygems:/Users/evanswang/work/drc_root/drc/target/rubygems-provided:/Users/evanswang/work/drc_root/drc/target/rubygems-test:/Users/evanswang/work/drc_root/drc/target/rubygems-jruby9-exec-maven-plugin
+[INFO] Setting environment variable: JARS_HOME=/Users/evanswang/.m2/repository
+[INFO] Setting environment variable: GEM_HOME=/Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] Setting environment variable: JARS_LOCK=/Users/evanswang/work/drc_root/drc/target/Jars_jruby9-exec.lock
+[INFO] Setting environment variable: JBUNDLE_SKIP=true
+[INFO] Execute:Java13CommandLauncher: Executing '/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/bin/java' with arguments:
+'-cp'
+'/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'-Djava.awt.headless=true'
+'-Xbootclasspath/a:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'org.jruby.Main'
+'-I'
+'/Users/evanswang/work/drc_root/drc/lib'
+'-r'
+'jars/setup'
+'/Users/evanswang/work/drc_root/drc/target/rubygems/bin/bundle'
+'install'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[INFO] Fetching gem metadata from https://rubygems.org/.........
+[INFO] Using rake 12.3.0
+[INFO] Fetching concurrent-ruby 1.0.5 (java)
+[INFO] Installing concurrent-ruby 1.0.5 (java)
+[INFO] Fetching i18n 0.9.5
+[INFO] Installing i18n 0.9.5
+[INFO] Fetching minitest 5.11.3
+[INFO] Installing minitest 5.11.3
+[INFO] Fetching thread_safe 0.3.6 (java)
+[INFO] Installing thread_safe 0.3.6 (java)
+[INFO] Fetching tzinfo 1.2.5
+[INFO] Installing tzinfo 1.2.5
+[INFO] Fetching activesupport 5.1.5
+[INFO] Installing activesupport 5.1.5
+[INFO] Fetching builder 3.2.3
+[INFO] Installing builder 3.2.3
+[INFO] Fetching erubi 1.7.0
+[INFO] Installing erubi 1.7.0
+[INFO] Fetching nokogiri 1.8.2 (java)
+[INFO] Installing nokogiri 1.8.2 (java)
+[INFO] Fetching rails-dom-testing 2.0.3
+[INFO] Installing rails-dom-testing 2.0.3
+[INFO] Fetching crass 1.0.3
+[INFO] Installing crass 1.0.3
+[INFO] Fetching loofah 2.2.0
+[INFO] Installing loofah 2.2.0
+[INFO] Fetching rails-html-sanitizer 1.0.3
+[INFO] Installing rails-html-sanitizer 1.0.3
+[INFO] Fetching actionview 5.1.5
+[INFO] Installing actionview 5.1.5
+[INFO] Fetching rack 2.0.4
+[INFO] Installing rack 2.0.4
+[INFO] Fetching rack-test 0.8.2
+[INFO] Installing rack-test 0.8.2
+[INFO] Fetching actionpack 5.1.5
+[INFO] Installing actionpack 5.1.5
+[INFO] Fetching nio4r 2.2.0 (java)
+[INFO] Installing nio4r 2.2.0 (java)
+[INFO] Fetching websocket-extensions 0.1.3
+[INFO] Installing websocket-extensions 0.1.3
+[INFO] Fetching websocket-driver 0.6.5 (java)
+[INFO] Installing websocket-driver 0.6.5 (java)
+[INFO] Fetching actioncable 5.1.5
+[INFO] Installing actioncable 5.1.5
+[INFO] Fetching globalid 0.4.1
+[INFO] Installing globalid 0.4.1
+[INFO] Fetching activejob 5.1.5
+[INFO] Installing activejob 5.1.5
+[INFO] Fetching mini_mime 1.0.0
+[INFO] Installing mini_mime 1.0.0
+[INFO] Fetching mail 2.7.0
+[INFO] Installing mail 2.7.0
+[INFO] Fetching actionmailer 5.1.5
+[INFO] Installing actionmailer 5.1.5
+[INFO] Fetching activemodel 5.1.5
+[INFO] Installing activemodel 5.1.5
+[INFO] Fetching arel 8.0.0
+[INFO] Installing arel 8.0.0
+[INFO] Fetching activerecord 5.1.5
+[INFO] Installing activerecord 5.1.5
+[INFO] Fetching activerecord-jdbc-adapter 51.0
+[INFO] Installing activerecord-jdbc-adapter 51.0
+[INFO] Fetching jdbc-sqlite3 3.20.1
+[INFO] Installing jdbc-sqlite3 3.20.1
+[INFO] Fetching activerecord-jdbcsqlite3-adapter 51.0
+[INFO] Installing activerecord-jdbcsqlite3-adapter 51.0
+[INFO] Using bundler 1.16.1
+[INFO] Fetching execjs 2.7.0
+[INFO] Installing execjs 2.7.0
+[INFO] Fetching ffi 1.9.21 (java)
+[INFO] Installing ffi 1.9.21 (java)
+[INFO] Fetching multi_json 1.13.1
+[INFO] Installing multi_json 1.13.1
+[INFO] Fetching request_store 1.4.0
+[INFO] Installing request_store 1.4.0
+[INFO] Fetching gon 6.2.0
+[INFO] Installing gon 6.2.0
+[INFO] Fetching jbuilder 2.7.0
+[INFO] Installing jbuilder 2.7.0
+[INFO] Fetching jruby-jars 9.1.15.0
+[INFO] Installing jruby-jars 9.1.15.0
+[INFO] Fetching jruby-rack 1.1.21
+[INFO] Installing jruby-rack 1.1.21
+[INFO] Fetching little-plugger 1.1.4
+[INFO] Installing little-plugger 1.1.4
+[INFO] Fetching logging 2.2.2
+[INFO] Installing logging 2.2.2
+[INFO] Fetching method_source 0.9.0
+[INFO] Installing method_source 0.9.0
+[INFO] Fetching rack-proxy 0.6.3
+[INFO] Installing rack-proxy 0.6.3
+[INFO] Fetching thor 0.20.0
+[INFO] Installing thor 0.20.0
+[INFO] Fetching railties 5.1.5
+[INFO] Installing railties 5.1.5
+[INFO] Fetching sprockets 3.7.1
+[INFO] Installing sprockets 3.7.1
+[INFO] Fetching sprockets-rails 3.2.1
+[INFO] Installing sprockets-rails 3.2.1
+[INFO] Fetching rails 5.1.5
+[INFO] Installing rails 5.1.5
+[INFO] Fetching rb-fsevent 0.10.2
+[INFO] Installing rb-fsevent 0.10.2
+[INFO] Fetching rb-inotify 0.9.10
+[INFO] Installing rb-inotify 0.9.10
+[INFO] Fetching rubyzip 1.2.1
+[INFO] Installing rubyzip 1.2.1
+[INFO] Fetching sass-listen 4.0.0
+[INFO] Installing sass-listen 4.0.0
+[INFO] Fetching sass 3.5.5
+[INFO] Installing sass 3.5.5
+[INFO] Fetching tilt 2.0.8
+[INFO] Installing tilt 2.0.8
+[INFO] Fetching sass-rails 5.0.7
+[INFO] Installing sass-rails 5.0.7
+[INFO] Fetching sucker_punch 2.0.4
+[INFO] Installing sucker_punch 2.0.4
+[INFO] Fetching therubyrhino_jar 1.7.6
+[INFO] Installing therubyrhino_jar 1.7.6
+[INFO] Fetching therubyrhino 2.0.4
+[INFO] Installing therubyrhino 2.0.4
+[INFO] Fetching turbolinks-source 5.1.0
+[INFO] Installing turbolinks-source 5.1.0
+[INFO] Fetching turbolinks 5.1.0
+[INFO] Installing turbolinks 5.1.0
+[INFO] Fetching tzinfo-data 1.2018.3
+[INFO] Installing tzinfo-data 1.2018.3
+[INFO] Fetching uglifier 4.1.6
+[INFO] Installing uglifier 4.1.6
+[INFO] Fetching warbler 2.0.4
+[INFO] Installing warbler 2.0.4
+[INFO] Fetching webpacker 3.2.2
+[INFO] Installing webpacker 3.2.2
+[INFO] Bundle complete! 13 Gemfile dependencies, 67 gems now installed.
+[INFO] Use `bundle info [gemname]` to see where a bundled gem is installed.
+[INFO] Post-install message from sucker_punch:
+[INFO] Sucker Punch v2.0 introduces backwards-incompatible changes.
+[INFO] Please see https://github.com/brandonhilkert/sucker_punch/blob/master/CHANGES.md#200 for details.
+[INFO] 
+[INFO] --- jruby9-exec-maven-plugin:0.3.1:exec (run migration for test db) @ rails_drc ---
+[INFO] jruby version   : 9.1.15.0
+[INFO] script uses jruby jar:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar
+[INFO] add to ruby loadpath: /Users/evanswang/work/drc_root/drc/lib
+[INFO] installing gems for compile scope . . .
+[INFO] installing gems for runtime scope . . .
+[INFO] installing gems for provided scope . . .
+[INFO] installing gems for test scope . . .
+[INFO] installing gems for plugin org.torquebox.mojo:jruby9-exec-maven-plugin . . .
+[INFO] add gems to test-classpath from: /Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] java classpath  : 
+[INFO] environment     :
+[INFO] 		JARS_SKIP => true
+[INFO] 		GEM_PATH => /Users/evanswang/work/drc_root/drc/target/rubygems:/Users/evanswang/work/drc_root/drc/target/rubygems-provided:/Users/evanswang/work/drc_root/drc/target/rubygems-test:/Users/evanswang/work/drc_root/drc/target/rubygems-jruby9-exec-maven-plugin
+[INFO] 		JARS_HOME => /Users/evanswang/.m2/repository
+[INFO] 		GEM_HOME => /Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] 		JARS_LOCK => /Users/evanswang/work/drc_root/drc/target/Jars_jruby9-exec.lock
+[INFO] 		JBUNDLE_SKIP => true
+[INFO] Adding reference: ant.PropertyHelper
+[INFO] Project base dir set to: /Users/evanswang/work/drc_root/drc
+[INFO] Executing '/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/bin/java' with arguments:
+'-cp'
+'/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'-Djava.awt.headless=true'
+'-Xbootclasspath/a:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'org.jruby.Main'
+'-I'
+'/Users/evanswang/work/drc_root/drc/lib'
+'-r'
+'jars/setup'
+'/Users/evanswang/work/drc_root/drc/target/rubygems/bin/rake'
+'db:rollback'
+'STEP=9999'
+'RAILS_ENV=test'
+'db:migrate'
+'RAILS_ENV=test'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[INFO] Setting environment variable: JARS_SKIP=true
+[INFO] Setting environment variable: GEM_PATH=/Users/evanswang/work/drc_root/drc/target/rubygems:/Users/evanswang/work/drc_root/drc/target/rubygems-provided:/Users/evanswang/work/drc_root/drc/target/rubygems-test:/Users/evanswang/work/drc_root/drc/target/rubygems-jruby9-exec-maven-plugin
+[INFO] Setting environment variable: JARS_HOME=/Users/evanswang/.m2/repository
+[INFO] Setting environment variable: GEM_HOME=/Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] Setting environment variable: JARS_LOCK=/Users/evanswang/work/drc_root/drc/target/Jars_jruby9-exec.lock
+[INFO] Setting environment variable: JBUNDLE_SKIP=true
+[INFO] Execute:Java13CommandLauncher: Executing '/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/bin/java' with arguments:
+'-cp'
+'/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'-Djava.awt.headless=true'
+'-Xbootclasspath/a:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'org.jruby.Main'
+'-I'
+'/Users/evanswang/work/drc_root/drc/lib'
+'-r'
+'jars/setup'
+'/Users/evanswang/work/drc_root/drc/target/rubygems/bin/rake'
+'db:rollback'
+'STEP=9999'
+'RAILS_ENV=test'
+'db:migrate'
+'RAILS_ENV=test'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[INFO] "The version is "
+[INFO] "Setting rails war to use production"
+[INFO] /Users/evanswang/work/drc_root/drc/config/environment.rb:5: warning: already initialized constant WINDOWS
+[INFO] Rails has WebSocketSupport at: /websocket/rails
+[INFO] 
+[INFO] --- jruby9-exec-maven-plugin:0.3.1:exec (run migration for production db) @ rails_drc ---
+[INFO] jruby version   : 9.1.15.0
+[INFO] script uses jruby jar:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar
+[INFO] add to ruby loadpath: /Users/evanswang/work/drc_root/drc/lib
+[INFO] installing gems for compile scope . . .
+[INFO] installing gems for runtime scope . . .
+[INFO] installing gems for provided scope . . .
+[INFO] installing gems for test scope . . .
+[INFO] installing gems for plugin org.torquebox.mojo:jruby9-exec-maven-plugin . . .
+[INFO] add gems to test-classpath from: /Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] java classpath  : 
+[INFO] environment     :
+[INFO] 		JARS_SKIP => true
+[INFO] 		GEM_PATH => /Users/evanswang/work/drc_root/drc/target/rubygems:/Users/evanswang/work/drc_root/drc/target/rubygems-provided:/Users/evanswang/work/drc_root/drc/target/rubygems-test:/Users/evanswang/work/drc_root/drc/target/rubygems-jruby9-exec-maven-plugin
+[INFO] 		JARS_HOME => /Users/evanswang/.m2/repository
+[INFO] 		GEM_HOME => /Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] 		JARS_LOCK => /Users/evanswang/work/drc_root/drc/target/Jars_jruby9-exec.lock
+[INFO] 		JBUNDLE_SKIP => true
+[INFO] Adding reference: ant.PropertyHelper
+[INFO] Project base dir set to: /Users/evanswang/work/drc_root/drc
+[INFO] Executing '/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/bin/java' with arguments:
+'-cp'
+'/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'-Djava.awt.headless=true'
+'-Xbootclasspath/a:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'org.jruby.Main'
+'-I'
+'/Users/evanswang/work/drc_root/drc/lib'
+'-r'
+'jars/setup'
+'/Users/evanswang/work/drc_root/drc/target/rubygems/bin/rake'
+'db:rollback'
+'STEP=9999'
+'RAILS_ENV=production'
+'db:migrate'
+'RAILS_ENV=production'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[INFO] Setting environment variable: JARS_SKIP=true
+[INFO] Setting environment variable: GEM_PATH=/Users/evanswang/work/drc_root/drc/target/rubygems:/Users/evanswang/work/drc_root/drc/target/rubygems-provided:/Users/evanswang/work/drc_root/drc/target/rubygems-test:/Users/evanswang/work/drc_root/drc/target/rubygems-jruby9-exec-maven-plugin
+[INFO] Setting environment variable: JARS_HOME=/Users/evanswang/.m2/repository
+[INFO] Setting environment variable: GEM_HOME=/Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] Setting environment variable: JARS_LOCK=/Users/evanswang/work/drc_root/drc/target/Jars_jruby9-exec.lock
+[INFO] Setting environment variable: JBUNDLE_SKIP=true
+[INFO] Execute:Java13CommandLauncher: Executing '/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/bin/java' with arguments:
+'-cp'
+'/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'-Djava.awt.headless=true'
+'-Xbootclasspath/a:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'org.jruby.Main'
+'-I'
+'/Users/evanswang/work/drc_root/drc/lib'
+'-r'
+'jars/setup'
+'/Users/evanswang/work/drc_root/drc/target/rubygems/bin/rake'
+'db:rollback'
+'STEP=9999'
+'RAILS_ENV=production'
+'db:migrate'
+'RAILS_ENV=production'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[INFO] "The version is "
+[INFO] "Setting rails war to use production"
+[INFO] /Users/evanswang/work/drc_root/drc/config/environment.rb:5: warning: already initialized constant WINDOWS
+[INFO] Rails has WebSocketSupport at: /websocket/rails
+[INFO] 
+[INFO] --- jruby9-exec-maven-plugin:0.3.1:exec (run integration tests) @ rails_drc ---
+[INFO] jruby version   : 9.1.15.0
+[INFO] script uses jruby jar:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar
+[INFO] add to ruby loadpath: /Users/evanswang/work/drc_root/drc/lib
+[INFO] installing gems for compile scope . . .
+[INFO] installing gems for runtime scope . . .
+[INFO] installing gems for provided scope . . .
+[INFO] installing gems for test scope . . .
+[INFO] installing gems for plugin org.torquebox.mojo:jruby9-exec-maven-plugin . . .
+[INFO] add gems to test-classpath from: /Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] java classpath  : 
+[INFO] environment     :
+[INFO] 		JARS_SKIP => true
+[INFO] 		GEM_PATH => /Users/evanswang/work/drc_root/drc/target/rubygems:/Users/evanswang/work/drc_root/drc/target/rubygems-provided:/Users/evanswang/work/drc_root/drc/target/rubygems-test:/Users/evanswang/work/drc_root/drc/target/rubygems-jruby9-exec-maven-plugin
+[INFO] 		JARS_HOME => /Users/evanswang/.m2/repository
+[INFO] 		GEM_HOME => /Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] 		JARS_LOCK => /Users/evanswang/work/drc_root/drc/target/Jars_jruby9-exec.lock
+[INFO] 		JBUNDLE_SKIP => true
+[INFO] Adding reference: ant.PropertyHelper
+[INFO] Project base dir set to: /Users/evanswang/work/drc_root/drc
+[INFO] Executing '/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/bin/java' with arguments:
+'-cp'
+'/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'-Djava.awt.headless=true'
+'-Xbootclasspath/a:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'org.jruby.Main'
+'-I'
+'/Users/evanswang/work/drc_root/drc/lib'
+'-r'
+'jars/setup'
+'/Users/evanswang/work/drc_root/drc/target/rubygems/bin/rake'
+'test:integration'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[INFO] Setting environment variable: JARS_SKIP=true
+[INFO] Setting environment variable: GEM_PATH=/Users/evanswang/work/drc_root/drc/target/rubygems:/Users/evanswang/work/drc_root/drc/target/rubygems-provided:/Users/evanswang/work/drc_root/drc/target/rubygems-test:/Users/evanswang/work/drc_root/drc/target/rubygems-jruby9-exec-maven-plugin
+[INFO] Setting environment variable: JARS_HOME=/Users/evanswang/.m2/repository
+[INFO] Setting environment variable: GEM_HOME=/Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] Setting environment variable: JARS_LOCK=/Users/evanswang/work/drc_root/drc/target/Jars_jruby9-exec.lock
+[INFO] Setting environment variable: JBUNDLE_SKIP=true
+[INFO] Execute:Java13CommandLauncher: Executing '/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/bin/java' with arguments:
+'-cp'
+'/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'-Djava.awt.headless=true'
+'-Xbootclasspath/a:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'org.jruby.Main'
+'-I'
+'/Users/evanswang/work/drc_root/drc/lib'
+'-r'
+'jars/setup'
+'/Users/evanswang/work/drc_root/drc/target/rubygems/bin/rake'
+'test:integration'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[INFO] "The version is "
+[INFO] "Setting rails war to use production"
+[INFO] /Users/evanswang/work/drc_root/drc/config/environment.rb:5: warning: already initialized constant WINDOWS
+[INFO] Rails has WebSocketSupport at: /websocket/rails
+[INFO] env: jruby.exe: Permission denied
+[INFO] Run options: --seed 2476
+[INFO] 
+[INFO] # Running:
+[INFO] 
+[INFO] close invoked
+[INFO] .close invoked
+[INFO] .close invoked
+[INFO] .close invoked
+[INFO] .close invoked
+[INFO] .close invoked
+[INFO] .
+[INFO] 
+[INFO] Finished in 0.997854s, 6.0129 runs/s, 9.0194 assertions/s.
+[INFO] 6 runs, 9 assertions, 0 failures, 0 errors, 0 skips
+[INFO] 
+[INFO] --- jruby9-exec-maven-plugin:0.3.1:exec (build war) @ rails_drc ---
+[INFO] jruby version   : 9.1.15.0
+[INFO] script uses jruby jar:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar
+[INFO] add to ruby loadpath: /Users/evanswang/work/drc_root/drc/lib
+[INFO] installing gems for compile scope . . .
+[INFO] installing gems for runtime scope . . .
+[INFO] installing gems for provided scope . . .
+[INFO] installing gems for test scope . . .
+[INFO] installing gems for plugin org.torquebox.mojo:jruby9-exec-maven-plugin . . .
+[INFO] add gems to test-classpath from: /Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] java classpath  : 
+[INFO] environment     :
+[INFO] 		JARS_SKIP => true
+[INFO] 		GEM_PATH => /Users/evanswang/work/drc_root/drc/target/rubygems:/Users/evanswang/work/drc_root/drc/target/rubygems-provided:/Users/evanswang/work/drc_root/drc/target/rubygems-test:/Users/evanswang/work/drc_root/drc/target/rubygems-jruby9-exec-maven-plugin
+[INFO] 		JARS_HOME => /Users/evanswang/.m2/repository
+[INFO] 		GEM_HOME => /Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] 		JARS_LOCK => /Users/evanswang/work/drc_root/drc/target/Jars_jruby9-exec.lock
+[INFO] 		JBUNDLE_SKIP => true
+[INFO] Adding reference: ant.PropertyHelper
+[INFO] Project base dir set to: /Users/evanswang/work/drc_root/drc
+[INFO] Executing '/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/bin/java' with arguments:
+'-cp'
+'/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'-Djava.awt.headless=true'
+'-Xbootclasspath/a:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'org.jruby.Main'
+'-I'
+'/Users/evanswang/work/drc_root/drc/lib'
+'-r'
+'jars/setup'
+'/Users/evanswang/work/drc_root/drc/target/rubygems/bin/rake'
+'PROJECT_VERSION=1.00-SNAPSHOT'
+'RAILS_RELATIVE_URL_ROOT=/drc'
+'PROJECT_VERSION=1.00-SNAPSHOT'
+'devops:build_war'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[INFO] Setting environment variable: JARS_SKIP=true
+[INFO] Setting environment variable: GEM_PATH=/Users/evanswang/work/drc_root/drc/target/rubygems:/Users/evanswang/work/drc_root/drc/target/rubygems-provided:/Users/evanswang/work/drc_root/drc/target/rubygems-test:/Users/evanswang/work/drc_root/drc/target/rubygems-jruby9-exec-maven-plugin
+[INFO] Setting environment variable: JARS_HOME=/Users/evanswang/.m2/repository
+[INFO] Setting environment variable: GEM_HOME=/Users/evanswang/work/drc_root/drc/target/rubygems
+[INFO] Setting environment variable: JARS_LOCK=/Users/evanswang/work/drc_root/drc/target/Jars_jruby9-exec.lock
+[INFO] Setting environment variable: JBUNDLE_SKIP=true
+[INFO] Execute:Java13CommandLauncher: Executing '/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home/jre/bin/java' with arguments:
+'-cp'
+'/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'-Djava.awt.headless=true'
+'-Xbootclasspath/a:/Users/evanswang/.m2/repository/org/jruby/jruby-complete/9.1.15.0/jruby-complete-9.1.15.0.jar'
+'org.jruby.Main'
+'-I'
+'/Users/evanswang/work/drc_root/drc/lib'
+'-r'
+'jars/setup'
+'/Users/evanswang/work/drc_root/drc/target/rubygems/bin/rake'
+'PROJECT_VERSION=1.00-SNAPSHOT'
+'RAILS_RELATIVE_URL_ROOT=/drc'
+'PROJECT_VERSION=1.00-SNAPSHOT'
+'devops:build_war'
+
+The ' characters around the executable and arguments are
+not part of the command.
+[INFO] "The version is 1.00-SNAPSHOT"
+[INFO] "Setting rails war to use test"
+[INFO] "Build war file"
+[INFO] "Compile assets"
+[INFO] "rails env is test"
+[INFO] /Users/evanswang/work/drc_root/drc/config/environment.rb:5: warning: already initialized constant WINDOWS
+[INFO] Rails has WebSocketSupport at: /websocket/rails
+[INFO] I, [2018-03-19T16:24:28.798362 #8232]  INFO -- : Removed /Users/evanswang/work/drc_root/drc/public/assets
+[INFO] Webpacker is installed 🎉 🍰
+[INFO] Using /Users/evanswang/work/drc_root/drc/config/webpacker.yml file for setting up webpack paths
+[INFO] Removed webpack output path directory /Users/evanswang/work/drc_root/drc/public/packs
+[INFO] env: jruby.exe: Permission denied
+[INFO] I, [2018-03-19T16:24:30.461124 #8232]  INFO -- : Writing /Users/evanswang/work/drc_root/drc/public/assets/application-a51a53658dfaa975cb4363f51d14bccf24d66c3d90c2186bf834c157151c4bd1.js
+[INFO] I, [2018-03-19T16:24:30.505790 #8232]  INFO -- : Writing /Users/evanswang/work/drc_root/drc/public/assets/application-a51a53658dfaa975cb4363f51d14bccf24d66c3d90c2186bf834c157151c4bd1.js.gz
+[INFO] I, [2018-03-19T16:24:30.546452 #8232]  INFO -- : Writing /Users/evanswang/work/drc_root/drc/public/assets/application-f0d704deea029cf000697e2c0181ec173a1b474645466ed843eb5ee7bb215794.css
+[INFO] I, [2018-03-19T16:24:30.549377 #8232]  INFO -- : Writing /Users/evanswang/work/drc_root/drc/public/assets/application-f0d704deea029cf000697e2c0181ec173a1b474645466ed843eb5ee7bb215794.css.gz
+[INFO] I, [2018-03-19T16:24:35.123267 #8232]  INFO -- : Writing /Users/evanswang/work/drc_root/drc/public/assets/express/lib/application-9232ebdb20ad39572e70fb9e29810e63dbb63b58f5f18617c7c2bc8bd28321b5.js
+[INFO] I, [2018-03-19T16:24:35.124578 #8232]  INFO -- : Writing /Users/evanswang/work/drc_root/drc/public/assets/express/lib/application-9232ebdb20ad39572e70fb9e29810e63dbb63b58f5f18617c7c2bc8bd28321b5.js.gz
+[INFO] Compiling…
+[INFO] Compiled all packs in /Users/evanswang/work/drc_root/drc/public/packs
+[INFO] "build the context file"
+[INFO] "context is /drc"
+[INFO] "build the version file"
+[INFO] "version is 1.00-SNAPSHOT"
+[INFO] rm -f ./target/drc-1.00-SNAPSHOT.war
+[INFO] Creating ./target/drc-1.00-SNAPSHOT.war
+[INFO] 
+[INFO] --- build-helper-maven-plugin:3.0.0:attach-artifact (attach-artifacts) @ rails_drc ---
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] drc-java ........................................... SUCCESS [  3.685 s]
+[INFO] Rails DRC .......................................... SUCCESS [05:19 min]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 05:23 min
+[INFO] Finished at: 2018-03-19T16:25:11-04:00
+[INFO] Final Memory: 23M/194M
+[INFO] ------------------------------------------------------------------------

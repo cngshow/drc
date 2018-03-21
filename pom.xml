@@ -76,11 +76,6 @@
 			<artifactId>juli</artifactId>
 			<version>6.0.53</version>
 		</dependency>
-		<dependency>
-			<groupId>gov.va.vba.drc</groupId>
-			<artifactId>drc-java</artifactId>
-			<version>1.00-SNAPSHOT</version>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -195,19 +190,19 @@
 						</configuration>
 					</execution>
 -->
-					<!--<execution>-->
-						<!--<id>run integration tests</id>-->
-						<!--<phase>compile</phase>-->
-						<!--<goals>-->
-							<!--<goal>exec</goal>-->
-						<!--</goals>-->
-						<!--<configuration>-->
-							<!--<jrubyVerbose>true</jrubyVerbose>-->
-							<!--<jrubyJvmArgs>-Djava.awt.headless=true</jrubyJvmArgs>-->
-							<!--<command>rake</command>-->
-							<!--<args>test:integration</args>-->
-						<!--</configuration>-->
-					<!--</execution>-->
+					<execution>
+						<id>run integration tests</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<jrubyVerbose>true</jrubyVerbose>
+							<jrubyJvmArgs>-Djava.awt.headless=true</jrubyJvmArgs>
+							<command>rake</command>
+							<args>test:integration</args>
+						</configuration>
+					</execution>
 
 					<!--<execution>-->
 						<!--<id>run library unit tests</id>-->

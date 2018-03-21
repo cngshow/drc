@@ -66,6 +66,8 @@ namespace :devops do
 	    File.delete(war)
     end
     Rake::Task['devops:maven_target'].invoke
+    # Moves jar file into lib/jars
+    Rake::Task['devops:drc_jars'].invoke
     Rake::Task['devops:compile_assets'].invoke
     Rake::Task['devops:generate_context_file'].invoke
     Rake::Task['devops:generate_version_file'].invoke
@@ -156,7 +158,7 @@ namespace :devops do
 
   wbdescr = 'build websocket jar and deploy'
   desc wbdescr
-  task :websocket do |task|
+  task :drc_jars do |task|
     p task.comment
     tomcat_copy_dir = "#{tomcat_base_dir}lib"
     # Grabs all previous websocket_rails_snapshots created by Maven -- needs to mirror POM.xml <version>
@@ -176,7 +178,7 @@ namespace :devops do
     puts "I will move the following jars: #{jars}"
     Dir.mkdir(tomcat_war_dst) unless File.exists?(tomcat_war_dst)
     jars.each do |jar|
-      copy_rails = "#{Rails.root}#{slash}lib#{slash}websocket"
+      copy_rails = "#{Rails.root}#{slash}lib#{slash}jars"
       puts "Copying #{jar} to #{copy_rails}"
       FileUtils.copy(jar,copy_rails)
       puts 'Done!'
