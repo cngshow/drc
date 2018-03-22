@@ -1,9 +1,5 @@
 require './lib/websocket/channels'
 
-jars = Dir.glob("#{Rails.root}/lib/websocket/*.jar")
-require jars.first
-#todo delete lines three and four when this jar becomes any old boring dependency managed by maven
-
 java_import 'gov.va.rails.websocket.WebSocketSupport' do |p, c|
   'JWebSocketSupport'
 end

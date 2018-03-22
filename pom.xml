@@ -46,7 +46,7 @@
 		<dependency>
 			<groupId>org.jruby</groupId>
 			<artifactId>jruby-complete</artifactId>
-			<version>9.1.16.0</version>
+			<version>9.1.15.0</version>
 		</dependency>
 		<dependency>
 			<groupId>rubygems</groupId>
@@ -148,6 +148,21 @@
 					</execution>
 
 					<execution>
+						<id>drc_jars</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<jrubyVerbose>true</jrubyVerbose>
+							<jrubyJvmArgs>-Djava.awt.headless=true</jrubyJvmArgs>
+							<!--<execArgs>PROJECT_VERSION=${project.version} RAILS_RELATIVE_URL_ROOT=/drc PROJECT_VERSION=${project.version}</execArgs>-->
+							<command>rake</command>
+							<args>devops:drc_jars</args>
+						</configuration>
+					</execution>
+
+					<execution>
 						<id>run migration for test db</id>
 						<phase>compile</phase>
 						<goals>
@@ -217,6 +232,8 @@
 							<!--<args>test:lib_unit</args>-->
 						<!--</configuration>-->
 					<!--</execution>-->
+
+
 
 
 					<execution>

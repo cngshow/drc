@@ -37,7 +37,8 @@ namespace :devops do
   app_name = Rails.application.class.parent_name.to_s.downcase
   tomcat_war ="#{tomcat_war_dst}#{slash}#{app_name}.war"
   tomcat_base_dir = "#{tomcat_war_dst}#{slash}..#{slash}"
-  $war_name = $maven_version.eql?($UNVERSIONED) ? default_name  : "#{default_name}-#{$maven_version}"
+  $war_name = default_name
+  #$war_name = $maven_version.eql?($UNVERSIONED) ? default_name  : "#{default_name}-#{$maven_version"
 
   desc 'build maven\'s target folder if needed'
   task :maven_target do |task|
@@ -67,8 +68,6 @@ namespace :devops do
 	    File.delete(war)
     end
     Rake::Task['devops:maven_target'].invoke
-    # Moves jar file into lib/jars
-    Rake::Task['devops:drc_jars'].invoke
     Rake::Task['devops:compile_assets'].invoke
     Rake::Task['devops:generate_context_file'].invoke
     Rake::Task['devops:generate_version_file'].invoke
@@ -77,13 +76,13 @@ namespace :devops do
     Warbler::Task.new
     Rake::Task['war'].invoke
     #if war file has the 1.00 snapshot then copy to tomcat here otherwise the copy will occur at move_war
-    if $maven_version != $UNVERSIONED
-      new_war = Dir.glob(File.join("target", "drc*.war"))
-      new_war.each do |war|
-        FileUtils.copy(war,src_war)
-        File.rename(src_war, "#{tomcat_war}")
-      end
-    end
+    # if $maven_version != $UNVERSIONED
+    #   new_war = Dir.glob(File.join("target", "drc*.war"))
+    #   new_war.each do |war|
+    #     FileUtils.copy(war,src_war)
+    #     File.rename(src_war, "#{tomcat_war}")
+    #   end
+    # end
   end
 
   desc 'Compile assets'
