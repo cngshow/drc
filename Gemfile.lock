@@ -64,7 +64,7 @@ GEM
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
     jdbc-sqlite3 (3.20.1)
-    jruby-jars (9.1.15.0)
+    jruby-jars (9.1.16.0)
     jruby-rack (1.1.21)
     little-plugger (1.1.4)
     logging (2.2.2)
