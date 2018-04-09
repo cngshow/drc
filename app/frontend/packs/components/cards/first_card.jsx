@@ -13,7 +13,8 @@ class First extends React.Component {
     render() {
         return (
             <div className="">
-                this is the {this.props.id} card
+                <h3>This is the Material-UI Dialog Card</h3>
+                {/*this is the {this.props.id} card*/}
                 <hr/>
                 <SimpleDialog />
             </div>

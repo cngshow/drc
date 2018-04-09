@@ -28,8 +28,8 @@ class DrcHeader extends React.Component {
                     <DrcMainMenu />
                 </div>
                 <div className="inline_block">
-                    <Button raised="true" onClick={this.swapText.bind(this, 'hello')}>hello</Button>
-                    <Button raised="true" onClick={this.swapText.bind(this, 'goodbye')}>goodbye</Button>
+                    <Button raised="true" onClick={this.swapText.bind(this, 'hello')}>Axios Hello</Button>
+                    <Button raised="true" onClick={this.swapText.bind(this, 'goodbye')}>Axios Goodbye</Button>
                 </div>
             </div>
         )

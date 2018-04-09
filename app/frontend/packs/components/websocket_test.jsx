@@ -44,7 +44,7 @@ class WebsocketTest extends React.Component {
                                    addlHeaders={this.addlHeaders.bind(this)}
                                    focus="post_msg" >
                     <TextValidator
-                        label="Msg"
+                        label="Post Message..."
                         name="post_msg"
                         validators={['required']}
                         errorMessages={['this field is required']}
@@ -53,9 +53,10 @@ class WebsocketTest extends React.Component {
                 </AjaxValidatorForm>
                 <hr/>
                 <div>
-                    <label htmlFor="incoming_msg">Last Incoming MSG</label>
+                    <label htmlFor="incoming_msg">Last Incoming MSG on {this.props.ws_channel}:</label>
                     <p>{this.state.incoming_msg}</p>
                 </div>
+                <br/>
             </div>
         )
     }

@@ -29,7 +29,7 @@ export default class Application extends React.Component {
                 {/*<hr/>*/}
                 <DrcHeader className="kheader"/>
                 <DrcMain className="kmain"/>
-                <DrcFooter className="kfooter"/>
+                {/*<DrcFooter className="kfooter"/>*/}
             </div>
         )
     }

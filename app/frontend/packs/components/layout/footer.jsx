@@ -4,7 +4,7 @@ class DrcFooter extends React.Component {
     render () {
         return (
             <div className="kfooter">
-                <div className="left">float left text</div>
+                <div className="left">float left footer text</div>
             </div>
         )
     }

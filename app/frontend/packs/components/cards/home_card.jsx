@@ -1,6 +1,6 @@
 import React from 'react';
 
-class RedCard extends React.Component {
+class Home extends React.Component {
     componentDidMount() {
         console.log(this.props.id + " is now mounted!");
     }
@@ -10,17 +10,19 @@ class RedCard extends React.Component {
     }
 
     render() {
-        let style = {
-            backgroundColor: 'red',
-            width: '50%',
-            height: '100%'
-        };
+        let axios_string = '';
+
+        if (this.props.axios != undefined) {
+            axios_string = 'axios returned ' + this.props.axios;
+        }
         return (
-            <div style={style}>
+            <div className="">
                 this is the {this.props.id} card
+                <br/>
+                {axios_string}
             </div>
         )
     }
 }
 
-export default RedCard
+export default Home

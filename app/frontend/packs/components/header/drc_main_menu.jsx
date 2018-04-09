@@ -48,7 +48,7 @@ class DrcMainMenu extends React.Component {
                             aria-haspopup="true"
                             onClick={this.handleClick}
                         >
-                            Open Menu
+                            Actions
                         </Button>
                     </Target>
                     <Popper
@@ -61,9 +61,9 @@ class DrcMainMenu extends React.Component {
                             <Grow in={open} id="menu-list" style={{ transformOrigin: '0 0 0' }}>
                                 <Paper>
                                     <MenuList role="menu">
-                                        <MenuItem onClick={this.handleClose.bind(this, {action: 'first'})}>First</MenuItem>
-                                        <MenuItem onClick={this.handleClose.bind(this, {action: 'account'})}>Account</MenuItem>
-                                        <MenuItem onClick={this.handleClose.bind(this,  {action: 'logout'})} >Logout</MenuItem>
+                                        <MenuItem onClick={this.handleClose.bind(this, {action: 'first'})}>Material-UI Dialog</MenuItem>
+                                        <MenuItem onClick={this.handleClose.bind(this, {action: 'account'})}>WebSocket Test</MenuItem>
+                                        <MenuItem onClick={this.handleClose.bind(this,  {action: 'logout'})} >Red Card</MenuItem>
                                         <MenuItem onClick={this.handleClose.bind(this,  {action: 'show_headers'})} >Show Headers</MenuItem>
                                     </MenuList>
                                 </Paper>

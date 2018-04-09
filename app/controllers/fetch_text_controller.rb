@@ -2,10 +2,7 @@ class FetchTextController < ApplicationController
 
   def fetch_text
     vals = []
-    vals << 'this is the first one'
-    vals << 'this is another one'
-    vals << 'this is one more'
-    (1..8).each do
+    (1..10).each do
       vals << SecureRandom.base64
     end
     WebSocketSupport.broadcast_all(message: "Hi guys, the time is #{Time.now}")
